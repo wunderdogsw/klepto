@@ -13,7 +13,7 @@
 	export let date: Date = new Date();
 
 	let open: boolean;
-	let dateDistance = formatDistance(date, new Date(), { addSuffix: true });
+	$: dateDistance = formatDistance(date, new Date(), { addSuffix: true });
 </script>
 
 <div>
