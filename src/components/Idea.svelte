@@ -7,6 +7,7 @@
 
 	import Heading from './Heading.svelte';
 
+	export let id: number;
 	export let title: string;
 	export let description: string;
 	export let votes: number;
