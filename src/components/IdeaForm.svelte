@@ -3,6 +3,8 @@
 
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
+	import Checkbox from '@smui/checkbox';
+	import FormField from '@smui/form-field';
 	import CharacterCounter from '@smui/textfield/character-counter';
 	import Button from '@smui/button';
 
@@ -49,6 +51,15 @@
 			>
 				<CharacterCounter slot="internalCounter">0 / 400</CharacterCounter>
 			</Textfield>
+		</Cell>
+		<Cell span="12">
+			<FormField>
+				<Checkbox />
+				<span slot="label">
+					I hereby willfully and with sound mind release this idea to the public domain and will not
+					have any copyright or any other claims whatsoever
+				</span>
+			</FormField>
 		</Cell>
 		<Cell span="12">
 			<Button variant="raised">{id ? 'Update Idea' : 'Add Idea'}</Button>
