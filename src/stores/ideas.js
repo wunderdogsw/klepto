@@ -68,12 +68,24 @@ const createIdeas = (ideas) => {
 	// TODO consolidate id type
 	const findById = (id) => ideas.find((item) => item.id.toString() === id);
 
+	const voteUp = (id) =>
+		update((ideas) =>
+			ideas.map((item) => (item.id === id ? { ...item, votes: item.votes + 1 } : item))
+		);
+
+	const voteDown = (id) =>
+		update((ideas) =>
+			ideas.map((item) => (item.id === id ? { ...item, votes: item.votes - 1 } : item))
+		);
+
 	return {
 		subscribe,
 		findById,
 		sortBy,
 		add,
-		edit
+		edit,
+		voteUp,
+		voteDown
 	};
 };
 

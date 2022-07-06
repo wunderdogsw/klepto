@@ -5,6 +5,8 @@
 
 	import formatDistance from 'date-fns/formatDistance';
 
+	import { ideas as ideasStore } from '../stores/ideas';
+
 	import Heading from './Heading.svelte';
 
 	export let id: number;
@@ -13,8 +15,20 @@
 	export let votes: number;
 	export let date: Date = new Date();
 
-	let open: boolean;
+	let open = false;
+	let voted = false;
+
 	$: dateDistance = formatDistance(date, new Date(), { addSuffix: true });
+	const handleVote = () => {
+		console.log({ voted });
+		if (voted) {
+			ideasStore.voteDown(id);
+			voted = false;
+		} else {
+			ideasStore.voteUp(id);
+			voted = true;
+		}
+	};
 </script>
 
 <div>
@@ -24,7 +38,7 @@
 				<Heading level="h3">
 					{title}
 				</Heading>
-				<IconButton slot="icon" toggle pressed={open}>
+				<IconButton slot="icon" toggle={voted}>
 					<Icon class="material-icons" on>expand_less</Icon>
 					<Icon class="material-icons">expand_more</Icon>
 				</IconButton>
@@ -32,8 +46,9 @@
 			<Content>{description}</Content>
 		</Panel>
 	</Accordion>
+
 	<div class="info">
-		<IconButton>
+		<IconButton on:click={handleVote}>
 			<Icon class="material-icons">thumb_up</Icon>
 			<Badge aria-label="votes">{votes}</Badge>
 		</IconButton>
