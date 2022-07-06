@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '@smui/button';
 
-	import { ideas as ideasStore } from '../lib/stores';
+	import { ideas as ideasStore } from '../stores/ideas';
 	import { SORT_ORDER } from '../lib/types';
 
 	export let sortOrderKey;

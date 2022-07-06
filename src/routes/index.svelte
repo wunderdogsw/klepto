@@ -3,7 +3,7 @@
 	import Button, { Label, Icon } from '@smui/button';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 
-	import { ideas as ideasStore } from '../lib/stores';
+	import { ideas as ideasStore } from '../stores/ideas';
 	import { SORT_ORDER } from '../lib/types';
 
 	import TopBar from '../components/TopBar.svelte';

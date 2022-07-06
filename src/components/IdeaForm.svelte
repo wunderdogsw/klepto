@@ -6,7 +6,7 @@
 	import CharacterCounter from '@smui/textfield/character-counter';
 	import Button from '@smui/button';
 
-	import { ideas as ideasStore } from '../lib/stores';
+	import { ideas as ideasStore } from '../stores/ideas';
 
 	let title = '';
 	let description = '';

@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
-import { randomizeArray, sortArrayByProp } from './utils';
-import { SORT_ORDER } from './types';
+import { randomizeArray, sortArrayByProp } from '../lib/utils';
+import { SORT_ORDER } from '../lib/types';
 
 export const sortOrder = writable(SORT_ORDER.POPULARITY);
 
