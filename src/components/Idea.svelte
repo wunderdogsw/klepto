@@ -16,18 +16,16 @@
 	export let date: Date = new Date();
 
 	let open = false;
-	let voted = false;
+	let loved = false;
 
 	$: dateDistance = formatDistance(date, new Date(), { addSuffix: true });
 	const handleVote = () => {
-		console.log({ voted });
-		if (voted) {
+		if (loved) {
 			ideasStore.voteDown(id);
-			voted = false;
 		} else {
 			ideasStore.voteUp(id);
-			voted = true;
 		}
+		loved = !loved;
 	};
 </script>
 
@@ -49,7 +47,7 @@
 
 	<div class="info">
 		<IconButton on:click={handleVote}>
-			<Icon class="material-icons">thumb_up</Icon>
+			<Icon class="material-icons" color="variant">{loved ? 'favorite' : 'favorite_border'}</Icon>
 			<Badge aria-label="votes">{votes}</Badge>
 		</IconButton>
 		<span>
