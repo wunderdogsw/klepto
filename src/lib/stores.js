@@ -52,9 +52,12 @@ const createIdeas = (value) => {
 		}
 	};
 
+	const add = (idea) => update((value) => [{ ...idea, date: new Date(), votes: 0 }, ...value]);
+
 	return {
 		subscribe,
-		sortBy
+		sortBy,
+		add
 	};
 };
 

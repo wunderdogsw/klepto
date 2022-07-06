@@ -7,6 +7,6 @@
 	export let sortOrderKey;
 </script>
 
-<Button on:click={() => ideasStore.sortBy(sortOrderKey)}>
+<Button variant="unelevated" on:click={() => ideasStore.sortBy(sortOrderKey)}>
 	{SORT_ORDER[sortOrderKey]}
 </Button>
