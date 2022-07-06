@@ -38,7 +38,7 @@
 				<Heading level="h3">
 					{title}
 				</Heading>
-				<IconButton slot="icon" toggle={voted}>
+				<IconButton slot="icon" toggle={open}>
 					<Icon class="material-icons" on>expand_less</Icon>
 					<Icon class="material-icons">expand_more</Icon>
 				</IconButton>
