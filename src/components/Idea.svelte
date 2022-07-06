@@ -47,7 +47,7 @@
 
 	<div class="info">
 		<IconButton on:click={handleVote}>
-			<Icon class="material-icons" color="variant">{loved ? 'favorite' : 'favorite_border'}</Icon>
+			<Icon class="material-icons">{loved ? 'favorite' : 'favorite_border'}</Icon>
 			<Badge aria-label="votes">{votes}</Badge>
 		</IconButton>
 		<span>
