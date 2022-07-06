@@ -21,10 +21,6 @@
 		<Panel bind:open>
 			<Header>
 				<Heading level="h3">
-					<IconButton>
-						<Icon class="material-icons">thumb_up</Icon>
-						<Badge aria-label="votes">{votes}</Badge>
-					</IconButton>
 					{title}
 				</Heading>
 				<IconButton slot="icon" toggle pressed={open}>
@@ -35,7 +31,21 @@
 			<Content>{description}</Content>
 		</Panel>
 	</Accordion>
-	<div>
-		{dateDistance}
+	<div class="info">
+		<IconButton>
+			<Icon class="material-icons">thumb_up</Icon>
+			<Badge aria-label="votes">{votes}</Badge>
+		</IconButton>
+		<span>
+			{dateDistance}
+		</span>
 	</div>
 </div>
+
+<style>
+	.info {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+	}
+</style>
