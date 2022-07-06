@@ -5,8 +5,9 @@
 	import { SORT_ORDER } from '../lib/types';
 
 	export let sortOrderKey;
+	let label = SORT_ORDER[sortOrderKey];
 </script>
 
 <Button variant="unelevated" on:click={() => ideasStore.sortBy(sortOrderKey)}>
-	{SORT_ORDER[sortOrderKey]}
+	{label}
 </Button>
