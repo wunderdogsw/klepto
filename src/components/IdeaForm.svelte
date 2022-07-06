@@ -7,15 +7,27 @@
 	import Button from '@smui/button';
 
 	import { ideas as ideasStore } from '../stores/ideas';
+	import { onMount } from 'svelte';
 
-	let title = '';
-	let description = '';
+	export let id = null;
+
+	let idea = { title: '', description: '' };
+
+	onMount(() => {
+		if (id) {
+			// TODO handle when an idea isn't found
+			idea = ideasStore.findById(id);
+		}
+	});
 
 	const handleSubmit = () => {
-		ideasStore.add({
-			title,
-			description
-		});
+		if (id) {
+			ideasStore.edit(idea);
+		} else {
+			ideasStore.add(idea);
+		}
+
+		// TODO add success message
 		goto('/');
 	};
 </script>
@@ -23,12 +35,12 @@
 <form on:submit|preventDefault={handleSubmit}>
 	<LayoutGrid>
 		<Cell span="12">
-			<Textfield bind:value={title} label="Title" style="width: 100%;" required />
+			<Textfield bind:value={idea.title} label="Title" style="width: 100%;" required />
 		</Cell>
 		<Cell span="12">
 			<Textfield
 				textarea
-				bind:value={description}
+				bind:value={idea.description}
 				label="Description"
 				required
 				input$rows={4}
@@ -39,7 +51,7 @@
 			</Textfield>
 		</Cell>
 		<Cell span="12">
-			<Button variant="raised">Add Idea</Button>
+			<Button variant="raised">{id ? 'Update Idea' : 'Add Idea'}</Button>
 		</Cell>
 	</LayoutGrid>
 </form>

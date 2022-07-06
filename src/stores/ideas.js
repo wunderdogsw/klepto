@@ -62,10 +62,18 @@ const createIdeas = (ideas) => {
 			return [idea, ...ideas];
 		});
 
+	const edit = (idea) =>
+		update((ideas) => ideas.map((item) => (item.id === idea.id ? idea : item)));
+
+	// TODO consolidate id type
+	const findById = (id) => ideas.find((item) => item.id.toString() === id);
+
 	return {
 		subscribe,
+		findById,
 		sortBy,
-		add
+		add,
+		edit
 	};
 };
 
