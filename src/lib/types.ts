@@ -1,5 +1,5 @@
 export enum SORT_ORDER {
-	POPULARITY = 'popular',
 	DATE = 'newest',
+	POPULARITY = 'popular',
 	RANDOM = 'random'
 }
