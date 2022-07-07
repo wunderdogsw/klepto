@@ -12,7 +12,6 @@
 
 	export let ideas = [];
 
-	console.log(ideas);
 	ideasStore.set(ideas);
 </script>
 

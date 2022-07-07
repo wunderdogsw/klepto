@@ -12,7 +12,6 @@
 	export let title: string;
 	export let description: string;
 	export let votes: number;
-	export let name: string;
 	export let date: string;
 	export let user;
 
