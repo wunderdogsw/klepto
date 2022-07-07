@@ -12,7 +12,9 @@
 	export let title: string;
 	export let description: string;
 	export let votes: number;
+	export let name: string;
 	export let date: string;
+	export let user;
 
 	let open = false;
 	let loved = false;
@@ -48,8 +50,10 @@
 			<Icon class="material-icons">{loved ? 'favorite' : 'favorite_border'}</Icon>
 			<Badge aria-label="votes">{votes}</Badge>
 		</IconButton>
-
-		<TimeAgo {date} />
+		<div>
+			<span>{user.name}, </span>
+			<TimeAgo {date} />
+		</div>
 	</div>
 </div>
 
