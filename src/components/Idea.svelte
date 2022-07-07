@@ -3,27 +3,25 @@
 	import Badge from '@smui-extra/badge';
 	import IconButton, { Icon } from '@smui/icon-button';
 
-	import formatDistance from 'date-fns/formatDistance';
-
 	import { ideas as ideasStore } from '../stores/ideas';
 
 	import Heading from './Heading.svelte';
+	import TimeAgo from './TimeAgo.svelte';
 
-	export let id: number;
+	export let _id: string;
 	export let title: string;
 	export let description: string;
 	export let votes: number;
-	export let date: Date = new Date();
+	export let date: string;
 
 	let open = false;
 	let loved = false;
 
-	$: dateDistance = formatDistance(date, new Date(), { addSuffix: true });
 	const handleVote = () => {
 		if (loved) {
-			ideasStore.voteDown(id);
+			ideasStore.voteDown(_id);
 		} else {
-			ideasStore.voteUp(id);
+			ideasStore.voteUp(_id);
 		}
 		loved = !loved;
 	};
@@ -50,9 +48,8 @@
 			<Icon class="material-icons">{loved ? 'favorite' : 'favorite_border'}</Icon>
 			<Badge aria-label="votes">{votes}</Badge>
 		</IconButton>
-		<span>
-			{dateDistance}
-		</span>
+
+		<TimeAgo {date} />
 	</div>
 </div>
 

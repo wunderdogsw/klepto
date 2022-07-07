@@ -2,41 +2,12 @@ import { writable } from 'svelte/store';
 import { randomizeArray, sortArrayByProp } from '../lib/utils';
 import { SORT_ORDER } from '../lib/types';
 
-export const sortOrder = writable(SORT_ORDER.POPULARITY);
-
-const defaultIdeas = [
-	{
-		id: 1,
-		title: 'Personal YouTube feed',
-		description:
-			'I want to input the channels that I want to subscribe to and this feed would generate a feed view for me. No infinite scroll, no time doom scrolling, no random recommendations!',
-		votes: 3,
-		date: new Date('July 4, 2022 03:24:00')
-	},
-	{
-		id: 2,
-		title: 'Office coffee rating app',
-		description:
-			'You could rate the current coffee that is being served at the office. In the end, you could have a cool scoreboard showing what coffee people like at the office.',
-		votes: 7,
-		date: new Date('December 17, 2021 03:24:00')
-	},
-	{
-		id: 3,
-		title: 'Everyday Calendar',
-		description:
-			'This thing https://www.kickstarter.com/projects/simonegiertz/the-every-day-calendar as a mobile app',
-		votes: 0,
-		date: new Date('May 2, 2022 03:24:00')
-	}
-];
-
 const sortByPopularity = (ideas) => sortArrayByProp(ideas, 'votes');
 
 const sortByDate = (ideas) => sortArrayByProp(ideas, 'date');
 
-const createIdeas = (ideas) => {
-	const { subscribe, update } = writable(sortByPopularity(ideas));
+const createIdeas = () => {
+	const { subscribe, set, update } = writable([]);
 
 	const sortBy = (sortOrderKey) => {
 		const sortOrder = SORT_ORDER[sortOrderKey];
@@ -57,29 +28,28 @@ const createIdeas = (ideas) => {
 
 	const add = ({ title, description }) =>
 		update((ideas) => {
-			const id = ideas.length + 1;
-			const idea = { title, description, id, date: new Date(), votes: 0 };
+			const _id = ideas.length + 1;
+			const idea = { title, description, _id, date: new Date(), votes: 0 };
 			return [idea, ...ideas];
 		});
 
 	const edit = (idea) =>
-		update((ideas) => ideas.map((item) => (item.id === idea.id ? idea : item)));
+		update((ideas) => ideas.map((item) => (item._id === idea._id ? idea : item)));
 
-	// TODO consolidate id type
-	const findById = (id) => ideas.find((item) => item.id.toString() === id);
+	const findById = (id) => ideas.find((item) => item._id === id);
 
-	const voteUp = (id) =>
+	const vote = (id, change) =>
 		update((ideas) =>
-			ideas.map((item) => (item.id === id ? { ...item, votes: item.votes + 1 } : item))
+			ideas.map((item) => (item._id === id ? { ...item, votes: item.votes + change } : item))
 		);
 
-	const voteDown = (id) =>
-		update((ideas) =>
-			ideas.map((item) => (item.id === id ? { ...item, votes: item.votes - 1 } : item))
-		);
+	const voteUp = (id) => vote(id, 1);
+
+	const voteDown = (id) => vote(id, -1);
 
 	return {
 		subscribe,
+		set,
 		findById,
 		sortBy,
 		add,
@@ -89,4 +59,4 @@ const createIdeas = (ideas) => {
 	};
 };
 
-export const ideas = createIdeas(defaultIdeas);
+export const ideas = createIdeas();

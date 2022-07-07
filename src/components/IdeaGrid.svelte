@@ -3,11 +3,11 @@
 
 	import Idea from '../components/Idea.svelte';
 
-	export let ideas;
+	import { ideas } from '../stores/ideas';
 </script>
 
 <LayoutGrid>
-	{#each ideas as idea}
+	{#each $ideas as idea}
 		<Cell span="12">
 			<Idea {...idea} />
 		</Cell>

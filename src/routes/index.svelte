@@ -10,9 +10,9 @@
 	import IdeaGrid from '../components/IdeaGrid.svelte';
 	import SortButton from '../components/SortButton.svelte';
 
-	let ideas = [];
+	export let ideas = [];
 
-	ideasStore.subscribe((value) => (ideas = value));
+	ideasStore.set(ideas);
 </script>
 
 <TopBar>
@@ -33,5 +33,5 @@
 </LayoutGrid>
 
 <main>
-	<IdeaGrid {ideas} />
+	<IdeaGrid />
 </main>
