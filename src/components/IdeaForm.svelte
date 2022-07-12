@@ -14,36 +14,51 @@
 	export let id = null;
 
 	let idea = { title: '', description: '' };
+	let action = '/api/ideas/new';
 
 	onMount(() => {
 		if (id) {
 			// TODO handle when an idea isn't found
 			idea = ideasStore.findById(id);
+			action = '/api/ideas/edit';
 		}
 	});
 
-	const handleSubmit = () => {
-		if (id) {
-			ideasStore.edit(idea);
-		} else {
-			ideasStore.add(idea);
-		}
+	const handleSubmit = async () => {
+		try {
+			if (id) {
+				ideasStore.edit(idea);
+			} else {
+				// TODO move this out to store or api file?
+				const response = await fetch(action, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(idea)
+				});
+				const json = await response.json();
+				ideasStore.add(json.idea);
+			}
 
-		// TODO add success message
-		goto('/');
+			await goto('/');
+		} catch (error) {
+			console.error(error);
+		}
 	};
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
 	<LayoutGrid>
 		<Cell span="12">
-			<Textfield bind:value={idea.title} label="Title" style="width: 100%;" required />
+			<Textfield name="title" label="Title" bind:value={idea.title} style="width: 100%;" required />
 		</Cell>
 		<Cell span="12">
 			<Textfield
 				textarea
-				bind:value={idea.description}
+				name="description"
 				label="Description"
+				bind:value={idea.description}
 				required
 				input$rows={4}
 				input$maxlength={400}
@@ -54,7 +69,7 @@
 		</Cell>
 		<Cell span="12">
 			<FormField>
-				<Checkbox />
+				<Checkbox name="consent" />
 				<span slot="label">
 					I hereby willfully and with sound mind release this idea to the public domain and will not
 					have any copyright or any other claims whatsoever
