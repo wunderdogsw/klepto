@@ -12,7 +12,7 @@ export async function post({ request }) {
 		const idea = {
 			title,
 			description,
-			votes: 0,
+			votes: [],
 			date: new Date(),
 			// TODO fix for authentication/authorization
 			userId: new ObjectId('62c692648ec3799497ae377e')

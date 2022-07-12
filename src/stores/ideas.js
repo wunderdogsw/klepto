@@ -38,14 +38,21 @@ const createIdeas = () => {
 
 	const findById = (id) => ideas.find((item) => item._id === id);
 
-	const vote = (id, change) =>
+	// TODO
+	const voteUp = (id, userId) =>
 		update((ideas) =>
-			ideas.map((item) => (item._id === id ? { ...item, votes: item.votes + change } : item))
+			ideas.map((item) => (item._id === id ? { ...item, votes: [...item.votes, userId] } : item))
 		);
 
-	const voteUp = (id) => vote(id, 1);
-
-	const voteDown = (id) => vote(id, -1);
+	// TODO
+	const voteDown = (id, userId) =>
+		update((ideas) =>
+			ideas.map((item) =>
+				item._id === id
+					? { ...item, votes: item.votes.filter((voteUserId) => voteUserId !== userId) }
+					: item
+			)
+		);
 
 	return {
 		subscribe,

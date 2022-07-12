@@ -4,6 +4,7 @@
 	import IconButton, { Icon } from '@smui/icon-button';
 
 	import { ideas as ideasStore } from '../stores/ideas';
+	import { user as userStore } from '../stores/user';
 
 	import Heading from './Heading.svelte';
 	import TimeAgo from './TimeAgo.svelte';
@@ -11,20 +12,19 @@
 	export let _id: string;
 	export let title: string;
 	export let description: string;
-	export let votes: number;
+	export let votes: string[];
 	export let date: string;
 	export let user;
 
 	let open = false;
-	let loved = false;
+	$: loved = votes.some((voteUserId) => voteUserId === $userStore._id);
 
 	const handleVote = () => {
 		if (loved) {
-			ideasStore.voteDown(_id);
+			ideasStore.voteDown(_id, $userStore._id);
 		} else {
-			ideasStore.voteUp(_id);
+			ideasStore.voteUp(_id, $userStore._id);
 		}
-		loved = !loved;
 	};
 </script>
 
@@ -47,7 +47,7 @@
 	<div class="info">
 		<IconButton on:click={handleVote}>
 			<Icon class="material-icons">{loved ? 'favorite' : 'favorite_border'}</Icon>
-			<Badge aria-label="votes">{votes}</Badge>
+			<Badge aria-label="votes">{votes.length}</Badge>
 		</IconButton>
 		<div>
 			<span>{user.name}, </span>
