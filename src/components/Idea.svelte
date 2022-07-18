@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
-	import Badge from '@smui-extra/badge';
 	import IconButton, { Icon } from '@smui/icon-button';
 
 	import { ideas as ideasStore } from '../stores/ideas';
@@ -8,6 +7,7 @@
 
 	import Heading from './Heading.svelte';
 	import TimeAgo from './TimeAgo.svelte';
+	import VoteButton from './VoteButton.svelte';
 
 	export let _id: string;
 	export let title: string;
@@ -45,10 +45,7 @@
 	</Accordion>
 
 	<div class="info">
-		<IconButton on:click={handleVote}>
-			<Icon class="material-icons">{loved ? 'favorite' : 'favorite_border'}</Icon>
-			<Badge aria-label="votes">{votes.length}</Badge>
-		</IconButton>
+		<VoteButton {_id} {votes} />
 		<div>
 			<span>{user.name}, </span>
 			<TimeAgo {date} />
