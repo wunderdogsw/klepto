@@ -2,9 +2,6 @@
 	import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
 	import IconButton, { Icon } from '@smui/icon-button';
 
-	import { ideas as ideasStore } from '../stores/ideas';
-	import { user as userStore } from '../stores/user';
-
 	import Heading from './Heading.svelte';
 	import TimeAgo from './TimeAgo.svelte';
 	import VoteButton from './VoteButton.svelte';
@@ -17,15 +14,6 @@
 	export let user;
 
 	let open = false;
-	$: loved = votes.some((voteUserId) => voteUserId === $userStore._id);
-
-	const handleVote = () => {
-		if (loved) {
-			ideasStore.voteDown(_id, $userStore._id);
-		} else {
-			ideasStore.voteUp(_id, $userStore._id);
-		}
-	};
 </script>
 
 <div>
