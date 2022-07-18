@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import { randomizeArray, sortArrayByProp } from '../lib/utils';
 import { SORT_ORDER } from '../lib/types';
+import { addIdea, vote } from '../api/ideas';
 
 const sortByPopularity = (ideas) => sortArrayByProp(ideas, 'votes');
 
@@ -27,14 +28,7 @@ const createIdeas = () => {
 	};
 
 	const add = async (idea) => {
-		const response = await fetch('/api/ideas/new', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(idea)
-		});
-		const json = await response.json();
+		const json = await addIdea(idea);
 		update((ideas) => [json.idea, ...ideas]);
 	};
 
@@ -43,14 +37,15 @@ const createIdeas = () => {
 
 	const findById = (id) => ideas.find((item) => item._id === id);
 
-	// TODO
-	const voteUp = (id, userId) =>
+	const voteUp = async (id, userId) => {
+		await vote(id, userId, true);
 		update((ideas) =>
 			ideas.map((item) => (item._id === id ? { ...item, votes: [...item.votes, userId] } : item))
 		);
+	};
 
-	// TODO
-	const voteDown = (id, userId) =>
+	const voteDown = async (id, userId) => {
+		await vote(id, userId, false);
 		update((ideas) =>
 			ideas.map((item) =>
 				item._id === id
@@ -58,6 +53,7 @@ const createIdeas = () => {
 					: item
 			)
 		);
+	};
 
 	return {
 		subscribe,

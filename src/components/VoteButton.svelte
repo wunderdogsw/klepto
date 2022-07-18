@@ -10,11 +10,11 @@
 
 	$: isOn = votes.some((voteUserId) => voteUserId === $userStore._id);
 
-	const handleClick = () => {
+	const handleClick = async () => {
 		if (isOn) {
-			ideasStore.voteDown(ideaId, $userStore._id);
+			await ideasStore.voteDown(ideaId, $userStore._id);
 		} else {
-			ideasStore.voteUp(ideaId, $userStore._id);
+			await ideasStore.voteUp(ideaId, $userStore._id);
 		}
 	};
 </script>

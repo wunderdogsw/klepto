@@ -1,4 +1,5 @@
 import clientPromise from '$lib/mongodb-client';
+import { ObjectId } from 'mongodb';
 
 export async function patch({ request }) {
 	try {
@@ -7,15 +8,19 @@ export async function patch({ request }) {
 		const ideas = db.collection('ideas');
 
 		// TODO determine userId securely
-		const { _id, userId, hasVoted } = await request.json();
-		const filter = { _id };
-		const operation = hasVoted ? '$pull' : '$push';
+		const { ideaId, userId, isUp } = await request.json();
+		const filter = { _id: new ObjectId(ideaId) };
+		const operation = isUp ? '$push' : '$pull';
 		const updateDoc = {
 			[operation]: {
-				votes: userId
+				votes: new ObjectId(userId)
 			}
 		};
-		ideas.update(filter, updateDoc);
+		await ideas.updateOne(filter, updateDoc);
+		console.log('vote', { ideaId, userId });
+		return {
+			status: 200
+		};
 	} catch (errors) {
 		console.error(errors);
 		return {

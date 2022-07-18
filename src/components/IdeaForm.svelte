@@ -33,6 +33,7 @@
 
 			await goto('/');
 		} catch (error) {
+			// TODO show error message
 			console.error(error);
 		}
 	};
