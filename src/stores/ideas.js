@@ -26,12 +26,17 @@ const createIdeas = () => {
 		}
 	};
 
-	const add = ({ title, description }) =>
-		update((ideas) => {
-			const _id = ideas.length + 1;
-			const idea = { title, description, _id, date: new Date(), votes: 0 };
-			return [idea, ...ideas];
+	const add = async (idea) => {
+		const response = await fetch('/api/ideas/new', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(idea)
 		});
+		const json = await response.json();
+		update((ideas) => [json.idea, ...ideas]);
+	};
 
 	const edit = (idea) =>
 		update((ideas) => ideas.map((item) => (item._id === idea._id ? idea : item)));

@@ -12,33 +12,23 @@
 	import { onMount } from 'svelte';
 
 	export let id = null;
+	const isNew = !id;
 
 	let idea = { title: '', description: '' };
-	let action = '/api/ideas/new';
 
 	onMount(() => {
-		if (id) {
+		if (!isNew) {
 			// TODO handle when an idea isn't found
 			idea = ideasStore.findById(id);
-			action = '/api/ideas/edit';
 		}
 	});
 
 	const handleSubmit = async () => {
 		try {
-			if (id) {
-				ideasStore.edit(idea);
+			if (isNew) {
+				ideasStore.add(idea);
 			} else {
-				// TODO move this out to store or api file?
-				const response = await fetch(action, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(idea)
-				});
-				const json = await response.json();
-				ideasStore.add(json.idea);
+				ideasStore.add(idea);
 			}
 
 			await goto('/');
