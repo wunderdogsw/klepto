@@ -33,7 +33,7 @@
 	</Accordion>
 
 	<div class="info">
-		<VoteButton {_id} {votes} />
+		<VoteButton ideaId={_id} {votes} />
 		<div>
 			<span>{user.name}, </span>
 			<TimeAgo {date} />

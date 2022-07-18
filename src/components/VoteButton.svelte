@@ -5,21 +5,21 @@
 	import { ideas as ideasStore } from '../stores/ideas';
 	import { user as userStore } from '../stores/user';
 
-	export let _id: string;
+	export let ideaId: string;
 	export let votes: string[];
 
-	$: loved = votes.some((voteUserId) => voteUserId === $userStore._id);
+	$: isOn = votes.some((voteUserId) => voteUserId === $userStore._id);
 
-	const handleVote = () => {
-		if (loved) {
-			ideasStore.voteDown(_id, $userStore._id);
+	const handleClick = () => {
+		if (isOn) {
+			ideasStore.voteDown(ideaId, $userStore._id);
 		} else {
-			ideasStore.voteUp(_id, $userStore._id);
+			ideasStore.voteUp(ideaId, $userStore._id);
 		}
 	};
 </script>
 
-<IconButton on:click={handleVote}>
-	<Icon class="material-icons">{loved ? 'favorite' : 'favorite_border'}</Icon>
+<IconButton on:click={handleClick}>
+	<Icon class="material-icons">{isOn ? 'favorite' : 'favorite_border'}</Icon>
 	<Badge aria-label="votes">{votes.length}</Badge>
 </IconButton>
