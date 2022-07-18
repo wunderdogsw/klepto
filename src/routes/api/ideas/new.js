@@ -22,7 +22,7 @@ export async function post({ request }) {
 		console.log('new idea', { idea });
 
 		return {
-			status: 400,
+			status: 200,
 			body: { idea }
 		};
 	} catch (errors) {
