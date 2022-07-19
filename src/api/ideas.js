@@ -1,13 +1,4 @@
-const fetchJson = async (url, data, method = 'POST') => {
-	const response = await fetch(url, {
-		method,
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(data)
-	});
-	return await response.json();
-};
+import { fetchJson } from '$lib/utils';
 
 export const addIdea = async (idea) => await fetchJson('/api/ideas/new', idea);
 
