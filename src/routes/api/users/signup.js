@@ -11,7 +11,7 @@ export async function post({ request }) {
 
 		const count = await users.count({ email }, { limit: 1 });
 		const doesUserExist = count > 0;
-		if (doesUserExist > 0) {
+		if (doesUserExist) {
 			throw new Error(`email address ${email} is already signed up`);
 		}
 
