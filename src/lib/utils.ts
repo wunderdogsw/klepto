@@ -51,7 +51,10 @@ const stringToUint8Array = (string: string) => new TextEncoder().encode(string);
 
 export const generateJWT = async (secret: string, payload: JWTPayload): Promise<string> => {
 	const key = stringToUint8Array(secret);
-	return await new jose.SignJWT(payload).setProtectedHeader({ alg: 'HS256' }).sign(key);
+	return await new jose.SignJWT(payload)
+		.setIssuedAt()
+		.setProtectedHeader({ alg: 'HS256' })
+		.sign(key);
 };
 
 export const decryptJWT = async (secret: string, jwt: string) => {
