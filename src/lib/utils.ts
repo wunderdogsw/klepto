@@ -31,7 +31,11 @@ export const randomizeArray = <T>(array: Array<T>): Array<T> => {
 	return splicedArray.concat(randomizeArray(arrayCopy));
 };
 
-export const fetchJson = async (url: string, data: unknown, method = 'POST'): Promise<unknown> => {
+export const fetchJson = async (
+	url: string,
+	data: unknown = {},
+	method = 'POST'
+): Promise<unknown> => {
 	const response = await fetch(url, {
 		method,
 		headers: {

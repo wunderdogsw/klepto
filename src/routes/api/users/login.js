@@ -44,9 +44,6 @@ export async function post({ request }) {
 			status: 200,
 			headers: {
 				'set-cookie': setCookie
-			},
-			body: {
-				message: 'ok'
 			}
 		};
 	} catch (errors) {
