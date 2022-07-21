@@ -8,14 +8,16 @@
 <TopAppBar variant="static" color="secondary">
 	<Row>
 		<Section>
-			<Title><Button href="/">Klepto</Button></Title>
+			<Title>
+				<Button href="/">
+					<Icon class="material-icons">psychology</Icon>
+					Klepto
+				</Button>
+			</Title>
 		</Section>
-		{#if $userStore}
-			<Section>
-				<div>Hey {$userStore.name}!</div>
-			</Section>
-		{/if}
+
 		<Section align="end">
+			<Button href="/about">About</Button>
 			{#if $userStore}
 				<Button on:click={() => userStore.logout()}>Logout</Button>
 				<Button variant="raised" href="/new">
