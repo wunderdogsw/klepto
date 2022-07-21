@@ -3,7 +3,7 @@ import * as cookie from 'cookie';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const COOKIE_PATH = '/';
+import { COOKIE_PATH } from '$lib/constants';
 
 export async function post() {
 	try {

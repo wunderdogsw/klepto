@@ -6,8 +6,7 @@ import * as cookie from 'cookie';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const COOKIE_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
-const COOKIE_PATH = '/';
+import { WEEK_IN_SECONDS, COOKIE_PATH } from '$lib/constants';
 
 export async function post({ request }) {
 	try {
@@ -34,7 +33,7 @@ export async function post({ request }) {
 		const setCookie = cookie.serialize('token', token, {
 			httpOnly: true,
 			sameSite: 'strict',
-			maxAge: COOKIE_EXPIRATION,
+			maxAge: WEEK_IN_SECONDS,
 			path: COOKIE_PATH
 		});
 
