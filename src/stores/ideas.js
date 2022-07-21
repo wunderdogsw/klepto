@@ -37,14 +37,14 @@ const createIdeas = () => {
 
 	const findById = (id) => ideas.find((item) => item._id === id);
 
-	const voteUp = async (id, userId) => {
+	const addVote = async (id, userId) => {
 		await vote(id, true);
 		update((ideas) =>
 			ideas.map((item) => (item._id === id ? { ...item, votes: [...item.votes, userId] } : item))
 		);
 	};
 
-	const voteDown = async (id, userId) => {
+	const removeVote = async (id, userId) => {
 		await vote(id, false);
 		update((ideas) =>
 			ideas.map((item) =>
@@ -62,8 +62,8 @@ const createIdeas = () => {
 		sortBy,
 		add,
 		edit,
-		voteUp,
-		voteDown
+		addVote,
+		removeVote
 	};
 };
 
