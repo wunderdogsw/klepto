@@ -6,7 +6,8 @@ import * as cookie from 'cookie';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const DEFAULT_COOKIE_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
+const COOKIE_EXPIRATION = 60 * 60 * 24 * 7; // 1 week
+const COOKIE_PATH = '/';
 
 export async function post({ request }) {
 	try {
@@ -15,7 +16,7 @@ export async function post({ request }) {
 
 		const { email, password } = await request.json();
 
-		const query = await users.findOne({ email });
+		const query = await users.findOne({ email }, { _id: true, hash: true, salt: true });
 
 		const isUserFound = !!query;
 		if (!isUserFound) {
@@ -33,7 +34,8 @@ export async function post({ request }) {
 		const setCookie = cookie.serialize('token', token, {
 			httpOnly: true,
 			sameSite: 'strict',
-			maxAge: DEFAULT_COOKIE_EXPIRATION
+			maxAge: COOKIE_EXPIRATION,
+			path: COOKIE_PATH
 		});
 
 		console.log('login', { email });
