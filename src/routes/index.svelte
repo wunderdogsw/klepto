@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button, { Label, Icon } from '@smui/button';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 
 	import { ideas as ideasStore } from '../stores/ideas';
@@ -17,12 +16,7 @@
 	$userStore = user;
 </script>
 
-<TopBar>
-	<Button variant="raised" href="/new">
-		<Label>New Idea</Label>
-		<Icon class="material-icons">lightbulb</Icon>
-	</Button>
-</TopBar>
+<TopBar />
 
 <LayoutGrid>
 	{#each Object.keys(SORT_ORDER) as sortOrderKey}

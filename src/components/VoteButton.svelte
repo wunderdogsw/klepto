@@ -14,6 +14,7 @@
 	const handleClick = async () => {
 		if (!$userStore) {
 			await goto('/login');
+			return;
 		}
 
 		if (hasVoted) {
