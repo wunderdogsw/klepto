@@ -38,14 +38,14 @@ const createIdeas = () => {
 	const findById = (id) => ideas.find((item) => item._id === id);
 
 	const voteUp = async (id, userId) => {
-		await vote(id, userId, true);
+		await vote(id, true);
 		update((ideas) =>
 			ideas.map((item) => (item._id === id ? { ...item, votes: [...item.votes, userId] } : item))
 		);
 	};
 
 	const voteDown = async (id, userId) => {
-		await vote(id, userId, false);
+		await vote(id, false);
 		update((ideas) =>
 			ideas.map((item) =>
 				item._id === id
