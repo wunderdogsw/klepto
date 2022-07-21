@@ -50,5 +50,8 @@
 		<Cell span="12">
 			<Button variant="raised">Login</Button>
 		</Cell>
+		<Cell span="12">
+			<p>Don't have a user? Please <a href="/signup">signup</a></p>
+		</Cell>
 	</LayoutGrid>
 </form>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Section } from '@smui/top-app-bar';
 	import Button, { Label, Icon } from '@smui/button';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 
@@ -12,19 +11,17 @@
 	import SortButton from '../components/SortButton.svelte';
 
 	export let ideas = [];
-	export let user;
+	export let user = null;
 
 	$ideasStore = ideas;
 	$userStore = user;
 </script>
 
 <TopBar>
-	<Section align="end">
-		<Button variant="raised" href="/new">
-			<Label>New Idea</Label>
-			<Icon class="material-icons">lightbulb</Icon>
-		</Button>
-	</Section>
+	<Button variant="raised" href="/new">
+		<Label>New Idea</Label>
+		<Icon class="material-icons">lightbulb</Icon>
+	</Button>
 </TopBar>
 
 <LayoutGrid>
