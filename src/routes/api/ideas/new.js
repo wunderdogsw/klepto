@@ -1,19 +1,14 @@
 import { ObjectId } from 'mongodb';
-import * as cookie from 'cookie';
 
 import { getDb } from '$lib/mongodb-client';
-import { verifyJWT } from '$lib/utils';
+import { getPayloadFromJWTCookie } from '$lib/utils';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 export async function post({ request }) {
 	try {
-		const cookieHeader = request.headers.get('cookie');
-		const { token } = cookie.parse(cookieHeader);
-		const {
-			payload: { userId }
-		} = await verifyJWT(process.env.JWT_SECRET, token);
+		const { userId } = getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
 
 		const db = await getDb();
 		const ideas = db.collection('ideas');

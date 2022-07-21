@@ -1,16 +1,11 @@
 import { ObjectId } from 'mongodb';
-import * as cookie from 'cookie';
 
 import { getDb } from '$lib/mongodb-client';
-import { verifyJWT } from '$lib/utils';
+import { getPayloadFromJWTCookie } from '$lib/utils';
 
 export async function patch({ request }) {
 	try {
-		const cookieHeader = request.headers.get('cookie');
-		const { token } = cookie.parse(cookieHeader);
-		const {
-			payload: { userId }
-		} = await verifyJWT(process.env.JWT_SECRET, token);
+		const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
 
 		const db = await getDb();
 		const ideas = db.collection('ideas');

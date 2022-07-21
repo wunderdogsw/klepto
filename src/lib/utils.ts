@@ -1,6 +1,7 @@
 import * as crypto from 'crypto';
 import * as jose from 'jose';
 import type { JWTPayload } from 'jose';
+import * as cookie from 'cookie';
 
 export const sortArrayByProp = <T>(array: Array<T>, prop: keyof T) =>
 	array.sort((idea1, idea2) => {
@@ -57,7 +58,20 @@ export const generateJWT = async (secret: string, payload: JWTPayload): Promise<
 		.sign(key);
 };
 
-export const verifyJWT = async (secret: string, jwt: string) => {
+const verifyJWT = async (secret: string, jwt: string) => {
 	const key = stringToUint8Array(secret);
 	return await jose.jwtVerify(jwt, key);
+};
+
+export const getPayloadFromJWTCookie = async (secret: string, request: Request) => {
+	const cookieHeader = request.headers.get('cookie') ?? '';
+	const { token } = cookie.parse(cookieHeader);
+	const { payload } = await verifyJWT(secret, token);
+	return payload;
+};
+
+export const hasJWTCookie = (request: Request) => {
+	const cookieHeader = request.headers.get('cookie') ?? '';
+	const { token } = cookie.parse(cookieHeader);
+	return !!(cookieHeader || token);
 };

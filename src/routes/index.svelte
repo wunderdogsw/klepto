@@ -4,6 +4,7 @@
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 
 	import { ideas as ideasStore } from '../stores/ideas';
+	import { user as userStore } from '../stores/user';
 	import { SORT_ORDER } from '../lib/types';
 
 	import TopBar from '../components/TopBar.svelte';
@@ -11,8 +12,10 @@
 	import SortButton from '../components/SortButton.svelte';
 
 	export let ideas = [];
+	export let user;
 
-	ideasStore.set(ideas);
+	$ideasStore = ideas;
+	$userStore = user;
 </script>
 
 <TopBar>

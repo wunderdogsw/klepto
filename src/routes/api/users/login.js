@@ -16,7 +16,7 @@ export async function post({ request }) {
 
 		const { email, password } = await request.json();
 
-		const query = await users.findOne({ email }, { _id: true, hash: true, salt: true });
+		const query = await users.findOne({ email }, { projection: { hash: true, salt: true } });
 
 		const isUserFound = !!query;
 		if (!isUserFound) {

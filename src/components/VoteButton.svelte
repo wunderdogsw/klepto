@@ -8,7 +8,7 @@
 	export let ideaId: string;
 	export let votes: string[];
 
-	$: isOn = votes.some((voteUserId) => voteUserId === $userStore._id);
+	$: isOn = votes.some((voteUserId) => $userStore?._id && voteUserId === $userStore._id);
 
 	const handleClick = async () => {
 		if (isOn) {
