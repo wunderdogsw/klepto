@@ -28,6 +28,7 @@
 			if (isNew) {
 				ideasStore.add(idea);
 			} else {
+				// TODO fix idea editing
 				ideasStore.add(idea);
 			}
 

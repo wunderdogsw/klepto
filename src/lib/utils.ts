@@ -57,7 +57,7 @@ export const generateJWT = async (secret: string, payload: JWTPayload): Promise<
 		.sign(key);
 };
 
-export const decryptJWT = async (secret: string, jwt: string) => {
+export const verifyJWT = async (secret: string, jwt: string) => {
 	const key = stringToUint8Array(secret);
-	return await jose.jwtDecrypt(jwt, key);
+	return await jose.jwtVerify(jwt, key);
 };
