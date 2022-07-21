@@ -1,4 +1,6 @@
 import * as crypto from 'crypto';
+import * as jose from 'jose';
+import type { JWTPayload } from 'jose';
 
 export const sortArrayByProp = <T>(array: Array<T>, prop: keyof T) =>
 	array.sort((idea1, idea2) => {
@@ -40,7 +42,19 @@ export const fetchJson = async (url: string, data: unknown, method = 'POST'): Pr
 	return await response.json();
 };
 
-export const getSalt = (): string => crypto.randomBytes(16).toString('hex');
+export const generateSalt = (): string => crypto.randomBytes(16).toString('hex');
 
-export const getHash = (password: string, salt: string): string =>
+export const generateHash = (password: string, salt: string): string =>
 	crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512').toString('hex');
+
+const stringToUint8Array = (string: string) => new TextEncoder().encode(string);
+
+export const generateJWT = async (secret: string, payload: JWTPayload): Promise<string> => {
+	const key = stringToUint8Array(secret);
+	return await new jose.SignJWT(payload).setProtectedHeader({ alg: 'HS256' }).sign(key);
+};
+
+export const decryptJWT = async (secret: string, jwt: string) => {
+	const key = stringToUint8Array(secret);
+	return await jose.jwtDecrypt(jwt, key);
+};

@@ -4,7 +4,7 @@ dotenv.config();
 
 import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const uri = process.env['MONGODB_URI'];
+const uri = process.env.MONGODB_URI;
 const options = {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
@@ -34,7 +34,7 @@ if (process.env['NODE_ENV'] === 'development') {
 	clientPromise = client.connect();
 }
 
-// Export a module-scoped MongoClient promise.
-// By doing this in a separate module,
-// the client can be shared across functions.
-export default clientPromise;
+export const getDb = async () => {
+	const dbConnection = await clientPromise;
+	return dbConnection.db(process.env.DB_NAME);
+};

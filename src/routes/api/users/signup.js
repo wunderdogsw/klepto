@@ -1,10 +1,9 @@
-import clientPromise from '$lib/mongodb-client';
-import { getHash, getSalt } from '$lib/utils';
+import { getDb } from '$lib/mongodb-client';
+import { generateHash, generateSalt } from '$lib/utils';
 
 export async function post({ request }) {
 	try {
-		const dbConnection = await clientPromise;
-		const db = dbConnection.db('klepto');
+		const db = await getDb();
 		const users = db.collection('users');
 
 		const { name, email, password } = await request.json();
@@ -15,8 +14,8 @@ export async function post({ request }) {
 			throw new Error(`email address ${email} is already signed up`);
 		}
 
-		const salt = getSalt();
-		const hash = getHash(password, salt);
+		const salt = generateSalt();
+		const hash = generateHash(password, salt);
 
 		const user = { name, email, salt, hash };
 		// TODO

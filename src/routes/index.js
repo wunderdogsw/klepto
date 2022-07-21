@@ -1,9 +1,8 @@
-import clientPromise from '../lib/mongodb-client';
+import { getDb } from '../lib/mongodb-client';
 
 export async function get() {
 	try {
-		const dbConnection = await clientPromise;
-		const db = dbConnection.db('klepto');
+		const db = await getDb();
 		const pipeline = [
 			{
 				$lookup: {

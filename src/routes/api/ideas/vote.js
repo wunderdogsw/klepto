@@ -1,10 +1,9 @@
-import clientPromise from '$lib/mongodb-client';
 import { ObjectId } from 'mongodb';
+import { getDb } from '$lib/mongodb-client';
 
 export async function patch({ request }) {
 	try {
-		const dbConnection = await clientPromise;
-		const db = dbConnection.db('klepto');
+		const db = await getDb();
 		const ideas = db.collection('ideas');
 
 		// TODO determine userId securely
