@@ -46,7 +46,7 @@
 	<div class="flex">
 		<div class="flex">
 			<VoteButton ideaId={_id} {votes} />
-			<Button class="button-shaped-round" href={`/#${divId}`}>
+			<Button class="button-shaped-round" href={`#${divId}`}>
 				<ButtonIcon class="material-icons">link</ButtonIcon>
 			</Button>
 		</div>
