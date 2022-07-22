@@ -60,13 +60,10 @@
 			</Textfield>
 		</Cell>
 		<Cell span="12">
-			<FormField>
-				<Checkbox name="consent" />
-				<span slot="label">
-					I hereby willfully and with sound mind release this idea to the public domain and will not
-					have any copyright or any other claims whatsoever
-				</span>
-			</FormField>
+			<span>
+				I hereby willfully and with sound mind release this idea to the public domain and will not
+				have any copyright or any other claims whatsoever
+			</span>
 		</Cell>
 		<Cell span="12">
 			<Button variant="raised">{id ? 'Update Idea' : 'Add Idea'}</Button>
