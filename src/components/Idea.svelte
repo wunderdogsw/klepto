@@ -16,18 +16,19 @@
 	export let date: string;
 	export let user;
 
-	const divId = `idea-${_id}`;
+	const wrapperId = `idea-${_id}`;
+	const wrapperIdHash = `#${wrapperId}`;
 
 	let open = false;
 	let linked = false;
 
 	onMount(() => {
-		linked = location.hash === `#${divId}`;
+		linked = location.hash === wrapperIdHash;
 		open = linked;
 	});
 </script>
 
-<div id={divId} class:linked>
+<div id={wrapperId} class:linked>
 	<Accordion>
 		<Panel bind:open>
 			<Header>
@@ -46,7 +47,7 @@
 	<div class="flex">
 		<div class="flex">
 			<VoteButton ideaId={_id} {votes} />
-			<Button class="button-shaped-round" href={`#${divId}`}>
+			<Button class="button-shaped-round" href={wrapperIdHash}>
 				<ButtonIcon class="material-icons">link</ButtonIcon>
 			</Button>
 		</div>
