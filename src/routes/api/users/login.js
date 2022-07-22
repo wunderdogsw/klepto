@@ -24,7 +24,7 @@ export async function post({ request }) {
 			);
 		}
 
-		const { _id, hash, salt } = query;
+		const { _id, name, hash, salt } = query;
 		const isPasswordValid = hash === generateHash(password, salt);
 
 		if (!isPasswordValid) {
@@ -45,6 +45,9 @@ export async function post({ request }) {
 			status: 200,
 			headers: {
 				'set-cookie': setCookie
+			},
+			body: {
+				user: { _id, name, email }
 			}
 		};
 	} catch (error) {

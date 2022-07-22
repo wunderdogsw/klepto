@@ -1,26 +1,27 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { session } from '$app/stores';
+
 	import Badge from '@smui-extra/badge';
 	import IconButton, { Icon } from '@smui/icon-button';
-	import { goto } from '$app/navigation';
 
 	import { ideas as ideasStore } from '../stores/ideas';
-	import { user as userStore } from '../stores/user';
 
 	export let ideaId: string;
 	export let votes: string[];
 
-	$: hasVoted = votes.some((voteUserId) => $userStore?._id && voteUserId === $userStore._id);
+	$: hasVoted = votes.some((voteUserId) => voteUserId === $session.user?._id);
 
 	const handleClick = async () => {
-		if (!$userStore) {
+		if (!$session.user) {
 			await goto('/login');
 			return;
 		}
 
 		if (hasVoted) {
-			await ideasStore.removeVote(ideaId, $userStore._id);
+			await ideasStore.removeVote(ideaId, $session.user._id);
 		} else {
-			await ideasStore.addVote(ideaId, $userStore._id);
+			await ideasStore.addVote(ideaId, $session.user._id);
 		}
 	};
 </script>

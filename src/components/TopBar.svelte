@@ -1,13 +1,11 @@
 <script lang="ts">
+	import { session } from '$app/stores';
+
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import Button, { Label, Icon } from '@smui/button';
 
-	import { user as userStore } from '../stores/user';
-
-	import ErrorSnackbar from './InfoSnackbar.svelte';
+	import { logout } from '../api/users';
 </script>
-
-<ErrorSnackbar />
 
 <TopAppBar variant="static" color="secondary">
 	<Row>
@@ -22,8 +20,8 @@
 
 		<Section align="end">
 			<Button href="/about">About</Button>
-			{#if $userStore}
-				<Button on:click={() => userStore.logout()}>Logout</Button>
+			{#if $session.user}
+				<Button on:click={logout}>Logout</Button>
 				<Button variant="raised" href="/new">
 					<Label>New Idea</Label>
 					<Icon class="material-icons">lightbulb</Icon>

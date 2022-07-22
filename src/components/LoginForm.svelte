@@ -5,9 +5,9 @@
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
 
-	import { login } from '../api/users';
-
 	import { info } from '../stores/info';
+
+	import { login } from '../api/users';
 
 	let email = '';
 	let password = '';
