@@ -5,7 +5,6 @@
 	import { user as userStore } from '../stores/user';
 	import { SORT_ORDER } from '../lib/types';
 
-	import TopBar from '../components/TopBar.svelte';
 	import IdeaGrid from '../components/IdeaGrid.svelte';
 	import SortButton from '../components/SortButton.svelte';
 
@@ -16,16 +15,21 @@
 	$userStore = user;
 </script>
 
-<TopBar />
-
 <LayoutGrid>
-	{#each Object.keys(SORT_ORDER) as sortOrderKey}
-		<Cell span="1">
-			<SortButton {sortOrderKey} />
-		</Cell>
-	{/each}
+	<Cell span="12">
+		<div class="wrapper">
+			{#each Object.keys(SORT_ORDER) as sortOrderKey}
+				<SortButton {sortOrderKey} />
+			{/each}
+		</div>
+	</Cell>
 </LayoutGrid>
 
-<main>
-	<IdeaGrid />
-</main>
+<IdeaGrid />
+
+<style>
+	.wrapper {
+		display: flex;
+		gap: 1rem;
+	}
+</style>
