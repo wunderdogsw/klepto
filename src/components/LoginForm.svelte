@@ -7,6 +7,8 @@
 
 	import { login } from '../api/users';
 
+	import { info } from '../stores/info';
+
 	let email = '';
 	let password = '';
 
@@ -15,8 +17,7 @@
 			await login(email, password);
 			await goto('/');
 		} catch (error) {
-			// TODO show error message
-			console.error(error);
+			$info = error.message ?? error;
 		}
 	};
 </script>

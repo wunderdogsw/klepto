@@ -30,11 +30,12 @@ export async function post({ request }) {
 			status: 200,
 			body: { idea }
 		};
-	} catch (errors) {
-		console.error(errors);
+	} catch (error) {
+		console.error(error);
+		const { message } = error;
 		return {
 			status: 400,
-			body: { errors }
+			body: { error: { message } }
 		};
 	}
 }

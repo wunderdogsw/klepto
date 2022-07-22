@@ -24,11 +24,12 @@ export async function patch({ request }) {
 		return {
 			status: 200
 		};
-	} catch (errors) {
-		console.error(errors);
+	} catch (error) {
+		console.error(error);
+		const { message } = error;
 		return {
 			status: 400,
-			body: { errors }
+			body: { error: { message } }
 		};
 	}
 }

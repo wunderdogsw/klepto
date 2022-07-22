@@ -20,11 +20,12 @@ export async function post() {
 				'set-cookie': setCookie
 			}
 		};
-	} catch (errors) {
-		console.error(errors);
+	} catch (error) {
+		console.error(error);
+		const { message } = error;
 		return {
 			status: 400,
-			body: { errors }
+			body: { error: { message } }
 		};
 	}
 }

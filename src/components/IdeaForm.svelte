@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
@@ -9,7 +10,7 @@
 	import Button from '@smui/button';
 
 	import { ideas as ideasStore } from '../stores/ideas';
-	import { onMount } from 'svelte';
+	import { info } from '../stores/info';
 
 	export let id = null;
 	const isNew = !id;
@@ -34,8 +35,7 @@
 
 			await goto('/');
 		} catch (error) {
-			// TODO show error message
-			console.error(error);
+			$info = error.message ?? error;
 		}
 	};
 </script>

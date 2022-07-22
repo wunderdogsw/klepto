@@ -3,7 +3,11 @@
 	import Button, { Label, Icon } from '@smui/button';
 
 	import { user as userStore } from '../stores/user';
+
+	import ErrorSnackbar from './InfoSnackbar.svelte';
 </script>
+
+<ErrorSnackbar />
 
 <TopAppBar variant="static" color="secondary">
 	<Row>

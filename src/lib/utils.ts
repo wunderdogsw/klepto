@@ -44,7 +44,14 @@ export const fetchJson = async (
 		body: JSON.stringify(data)
 	});
 
-	return await response.json();
+	const json = await response.json();
+
+	if (!response.ok) {
+		const { message } = json.error;
+		throw new Error(message);
+	}
+
+	return json;
 };
 
 export const generateSalt = (): string => crypto.randomBytes(16).toString('hex');

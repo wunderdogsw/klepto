@@ -49,11 +49,11 @@ export async function get({ request }) {
 			}
 		};
 	} catch (error) {
+		console.error(error);
+		const { message } = error;
 		return {
 			status: 400,
-			body: {
-				error
-			}
+			body: { error: { message } }
 		};
 	}
 }

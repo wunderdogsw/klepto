@@ -19,14 +19,16 @@ export async function post({ request }) {
 
 		const isUserFound = !!query;
 		if (!isUserFound) {
-			throw new Error(`user ${email} not found`);
+			throw new Error(
+				`User ${email} not found. Please fix any typos or signup if you don't have a user`
+			);
 		}
 
 		const { _id, hash, salt } = query;
 		const isPasswordValid = hash === generateHash(password, salt);
 
 		if (!isPasswordValid) {
-			throw new Error(`wrong password for ${email}, please try again`);
+			throw new Error(`Wrong password for ${email}. Please try again`);
 		}
 
 		const token = await generateJWT(process.env.JWT_SECRET, { userId: _id });
@@ -45,11 +47,12 @@ export async function post({ request }) {
 				'set-cookie': setCookie
 			}
 		};
-	} catch (errors) {
-		console.error(errors);
+	} catch (error) {
+		console.error(error);
+		const { message } = error;
 		return {
 			status: 400,
-			body: { errors }
+			body: { error: { message } }
 		};
 	}
 }

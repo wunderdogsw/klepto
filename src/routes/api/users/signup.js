@@ -11,14 +11,15 @@ export async function post({ request }) {
 		const count = await users.count({ email }, { limit: 1 });
 		const doesUserExist = count > 0;
 		if (doesUserExist) {
-			throw new Error(`email address ${email} is already signed up`);
+			throw new Error(
+				`Email address ${email} is already signed up. Please login or use a different address`
+			);
 		}
 
 		const salt = generateSalt();
 		const hash = generateHash(password, salt);
 
 		const user = { name, email, salt, hash };
-		// TODO
 		await users.insertOne(user);
 		console.log('new user', user);
 
@@ -26,11 +27,12 @@ export async function post({ request }) {
 			status: 200,
 			body: { user }
 		};
-	} catch (errors) {
-		console.error(errors);
+	} catch (error) {
+		console.error(error);
+		const { message } = error;
 		return {
 			status: 400,
-			body: { errors }
+			body: { error: { message } }
 		};
 	}
 }

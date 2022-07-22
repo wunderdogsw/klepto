@@ -6,6 +6,7 @@
 	import Button from '@smui/button';
 
 	import { signup } from '../api/users';
+	import { info } from '../stores/info';
 
 	let name = '';
 	let email = '';
@@ -16,8 +17,7 @@
 			await signup(name, email, password);
 			await goto('/');
 		} catch (error) {
-			// TODO show error message
-			console.error(error);
+			$info = error.message ?? error;
 		}
 	};
 </script>
