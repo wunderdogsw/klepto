@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
 	import IconButton, { Icon } from '@smui/icon-button';
+	import Button, { Icon as ButtonIcon } from '@smui/button';
 
 	import Heading from './Heading.svelte';
 	import TimeAgo from './TimeAgo.svelte';
@@ -13,10 +16,18 @@
 	export let date: string;
 	export let user;
 
+	const divId = `idea-${_id}`;
+
 	let open = false;
+	let linked = false;
+
+	onMount(() => {
+		linked = location.hash === `#${divId}`;
+		open = linked;
+	});
 </script>
 
-<div>
+<div id={divId} class:linked>
 	<Accordion>
 		<Panel bind:open>
 			<Header>
@@ -32,8 +43,13 @@
 		</Panel>
 	</Accordion>
 
-	<div class="info">
-		<VoteButton ideaId={_id} {votes} />
+	<div class="flex">
+		<div class="flex">
+			<VoteButton ideaId={_id} {votes} />
+			<Button class="button-shaped-round" href={`/#${divId}`}>
+				<ButtonIcon class="material-icons">link</ButtonIcon>
+			</Button>
+		</div>
 		<div>
 			<span>{user.name}, </span>
 			<TimeAgo {date} />
@@ -42,7 +58,11 @@
 </div>
 
 <style>
-	.info {
+	.linked {
+		border: 1px var(--mdc-theme-primary, #ff3e00) solid;
+	}
+
+	.flex {
 		align-items: center;
 		display: flex;
 		justify-content: space-between;
