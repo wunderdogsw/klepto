@@ -2,13 +2,12 @@
 	import { onMount } from 'svelte';
 	import { session } from '$app/stores';
 
-	import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
-	import IconButton, { Icon } from '@smui/icon-button';
-	import Button, { Icon as ButtonIcon } from '@smui/button';
+	import Button from '@smui/button';
 
-	import Heading from './Heading.svelte';
+	import IdeaAccordion from './IdeaAccordion.svelte';
+	import IdeaVoteButton from './IdeaVoteButton.svelte';
+	import IdeaLinkButton from './IdeaLinkButton.svelte';
 	import TimeAgo from './TimeAgo.svelte';
-	import VoteButton from './VoteButton.svelte';
 
 	export let _id: string;
 	export let title: string;
@@ -17,40 +16,22 @@
 	export let date: string;
 	export let user;
 
-	const wrapperId = `idea-${_id}`;
-	const wrapperIdHash = `#${wrapperId}`;
-
 	let open = false;
 	let linked = false;
 
 	onMount(() => {
-		linked = location.hash === wrapperIdHash;
+		linked = location.hash.endsWith(_id);
 		open = linked;
 	});
 </script>
 
-<div id={wrapperId} class:linked>
-	<Accordion>
-		<Panel bind:open>
-			<Header>
-				<Heading level="h3">
-					{title}
-				</Heading>
-				<IconButton slot="icon" toggle={open}>
-					<Icon class="material-icons" on>expand_less</Icon>
-					<Icon class="material-icons">expand_more</Icon>
-				</IconButton>
-			</Header>
-			<Content>{description}</Content>
-		</Panel>
-	</Accordion>
+<div id={_id} class:linked>
+	<IdeaAccordion {title} {description} {open} />
 
 	<div class="flex">
 		<div class="flex">
-			<VoteButton ideaId={_id} {votes} />
-			<Button class="button-shaped-round" href={wrapperIdHash}>
-				<ButtonIcon class="material-icons">link</ButtonIcon>
-			</Button>
+			<IdeaVoteButton ideaId={_id} {votes} />
+			<IdeaLinkButton ideaId={_id} />
 			{#if user._id === $session.user?._id}
 				<Button href={`/edit/${_id}`}>Edit</Button>
 			{/if}
