@@ -8,7 +8,7 @@ dotenv.config();
 
 export async function post({ request }) {
 	try {
-		const { userId } = getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
+		const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
 
 		const db = await getDb();
 		const ideas = db.collection('ideas');
