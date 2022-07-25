@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-
 	import IdeaForm from '../../components/IdeaForm.svelte';
 
-	const { id } = $page.params;
+	export let idea;
 </script>
 
-<IdeaForm {id} />
+<IdeaForm {idea} />

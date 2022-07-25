@@ -1,36 +1,24 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
-	import Checkbox from '@smui/checkbox';
-	import FormField from '@smui/form-field';
 	import CharacterCounter from '@smui/textfield/character-counter';
 	import Button from '@smui/button';
 
 	import { ideas as ideasStore } from '../stores/ideas';
 	import { info } from '../stores/info';
 
-	export let id = null;
-	const isNew = !id;
-
-	let idea = { title: '', description: '' };
-
-	onMount(() => {
-		if (!isNew) {
-			// TODO handle when an idea isn't found
-			idea = ideasStore.findById(id);
-		}
-	});
+	export let idea = { title: '', description: '' };
+	const isNew = !idea._id;
 
 	const handleSubmit = async () => {
 		try {
 			if (isNew) {
-				ideasStore.add(idea);
+				await ideasStore.add(idea);
 			} else {
 				// TODO fix idea editing
-				ideasStore.add(idea);
+				await ideasStore.edit(idea);
 			}
 
 			await goto('/');
@@ -66,7 +54,7 @@
 			</span>
 		</Cell>
 		<Cell span="12">
-			<Button variant="raised">{id ? 'Update Idea' : 'Add Idea'}</Button>
+			<Button variant="raised">{isNew ? 'Add Idea' : 'Update Idea'}</Button>
 		</Cell>
 	</LayoutGrid>
 </form>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { session } from '$app/stores';
 
 	import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
 	import IconButton, { Icon } from '@smui/icon-button';
@@ -50,6 +51,9 @@
 			<Button class="button-shaped-round" href={wrapperIdHash}>
 				<ButtonIcon class="material-icons">link</ButtonIcon>
 			</Button>
+			{#if user._id === $session.user?._id}
+				<Button href={`/edit/${_id}`}>Edit</Button>
+			{/if}
 		</div>
 		<div>
 			<span>{user.name}, </span>
