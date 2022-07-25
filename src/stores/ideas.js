@@ -3,7 +3,17 @@ import { randomizeArray, sortArrayByProp } from '../lib/utils';
 import { SORT_ORDER } from '../lib/types';
 import { addIdea, editIdea, vote } from '../api/ideas';
 
-const sortByPopularity = (ideas) => sortArrayByProp(ideas, 'votes');
+const sortByPopularity = (ideas) =>
+	ideas.sort((idea1, idea2) => {
+		if (idea1.votes.length > idea2.votes.length) {
+			return -1;
+		}
+		if (idea1.votes.length < idea2.votes.length) {
+			return 1;
+		}
+
+		return 0;
+	});
 
 const sortByDate = (ideas) => sortArrayByProp(ideas, 'date');
 
