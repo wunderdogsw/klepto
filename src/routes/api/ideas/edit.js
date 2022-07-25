@@ -19,7 +19,12 @@ export async function post({ request }) {
 			$set: { title, description }
 		};
 
-		await ideas.updateOne(filter, updateDoc);
+		const result = await ideas.updateOne(filter, updateDoc);
+		const didMatch = result.modifiedCount === 1;
+		if (!didMatch) {
+			throw new Error(`Could not edit idea ${_id} with userId ${userId}`);
+		}
+
 		console.log('edit idea', { idea });
 
 		return {
