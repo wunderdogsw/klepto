@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>About | Klepto</title>
+</svelte:head>
+
 <h1>About Klepto</h1>
 <p>
 	Ever had an amazing idea, but no time to build it? Or are you looking to build something, but have

@@ -12,6 +12,10 @@
 	$ideasStore = ideas;
 </script>
 
+<svelte:head>
+	<title>Steal Great Ideas | Kelpto</title>
+</svelte:head>
+
 <LayoutGrid>
 	<Cell span="12">
 		<div class="wrapper">

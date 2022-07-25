@@ -4,4 +4,8 @@
 	export let idea;
 </script>
 
+<svelte:head>
+	<title>Edit Idea | Klepto</title>
+</svelte:head>
+
 <IdeaForm {idea} />
