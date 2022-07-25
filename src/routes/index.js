@@ -20,7 +20,8 @@ export async function get() {
 			{
 				$project: {
 					user: {
-						password: 0
+						hash: 0,
+						salt: 0
 					}
 				}
 			}
