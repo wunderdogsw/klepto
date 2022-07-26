@@ -7,6 +7,7 @@
 	import IdeaAccordion from './IdeaAccordion.svelte';
 	import IdeaVoteButton from './IdeaVoteButton.svelte';
 	import IdeaLinkButton from './IdeaLinkButton.svelte';
+	import IdeaDeleteButton from './IdeaDeleteButton.svelte';
 	import TimeAgo from './TimeAgo.svelte';
 
 	export let _id: string;
@@ -34,6 +35,7 @@
 			<IdeaLinkButton ideaId={_id} />
 			{#if user._id === $session.user?._id}
 				<Button href={`/edit/${_id}`}>Edit</Button>
+				<IdeaDeleteButton ideaId={_id} {title} />
 			{/if}
 		</div>
 		<div>

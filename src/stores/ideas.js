@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { randomizeArray, sortArrayByProp } from '../lib/utils';
 import { SORT_ORDER } from '../lib/types';
-import { addIdea, editIdea, vote } from '../api/ideas';
+import * as ideasApi from '../api/ideas';
 
 const sortByPopularity = (ideas) =>
 	ideas.sort((idea1, idea2) => {
@@ -38,24 +38,29 @@ const createIdeas = () => {
 	};
 
 	const add = async (idea) => {
-		const json = await addIdea(idea);
+		const json = await ideasApi.add(idea);
 		update((ideas) => [json.idea, ...ideas]);
 	};
 
 	const edit = async (idea) => {
-		await editIdea(idea);
+		await ideasApi.edit(idea);
 		update((ideas) => ideas.map((item) => (item._id === idea._id ? idea : item)));
 	};
 
+	const del = async (_id) => {
+		await ideasApi.del(_id);
+		update((ideas) => ideas.filter((item) => item._id !== _id));
+	};
+
 	const addVote = async (id, userId) => {
-		await vote(id, true);
+		await ideasApi.vote(id, true);
 		update((ideas) =>
 			ideas.map((item) => (item._id === id ? { ...item, votes: [...item.votes, userId] } : item))
 		);
 	};
 
 	const removeVote = async (id, userId) => {
-		await vote(id, false);
+		await ideasApi.vote(id, false);
 		update((ideas) =>
 			ideas.map((item) =>
 				item._id === id
@@ -71,6 +76,7 @@ const createIdeas = () => {
 		sortBy,
 		add,
 		edit,
+		del,
 		addVote,
 		removeVote
 	};
