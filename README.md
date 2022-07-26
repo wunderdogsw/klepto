@@ -1,22 +1,19 @@
-# create-svelte
+# Klepto
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Simple website for sharing project ideas for others to steal, whether for education, fun, or profit.
 
-## Creating a project
+The stack is based on [Svelte](https://svelte.dev), [SvelteKit](https://kit.svelte.dev), [MongoDB](https://www.mongodb.com), and [Svelte Material UI](https://sveltematerialui.com).
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Setup
 
-```bash
-# create a new project in the current directory
-npm init svelte
-
-# create a new project in my-app
-npm init svelte my-app
-```
+1. Install packages with `npm install` (or `pnpm install` or `yarn`)
+2. Setup MongoDB or [sign up for MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+3. Create a new MongoDB database and initialize two collections: `users` and `ideas`
+4. Copy `.env.example` to `.env` and fill in all the relevant env variables
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Start a development server:
 
 ```bash
 npm run dev
