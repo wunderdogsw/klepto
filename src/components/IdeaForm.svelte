@@ -3,7 +3,6 @@
 
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
-	import CharacterCounter from '@smui/textfield/character-counter';
 	import Button from '@smui/button';
 
 	import { ideas as ideasStore } from '../stores/ideas';
@@ -41,16 +40,13 @@
 				bind:value={idea.description}
 				required
 				input$rows={4}
-				input$maxlength={400}
 				style="width: 100%;"
-			>
-				<CharacterCounter slot="internalCounter">0 / 400</CharacterCounter>
-			</Textfield>
+			/>
 		</Cell>
 		<Cell span="12">
 			<span>
-				I hereby willfully and with sound mind release this idea to the public domain and will not
-				have any copyright or any other claims whatsoever
+				By submitting this form I hereby willfully and with sound mind release this idea to the
+				public domain and will not have any copyright or any other claims whatsoever
 			</span>
 		</Cell>
 		<Cell span="12">
