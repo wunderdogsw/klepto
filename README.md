@@ -5,6 +5,8 @@ Simple website for sharing project ideas for others to steal, whether for educat
 This MVP is based on [Svelte](https://svelte.dev), [SvelteKit](https://kit.svelte.dev),
 [MongoDB](https://www.mongodb.com), and [Svelte Material UI](https://sveltematerialui.com).
 
+![Klepto Screenshot](screenshot.png)
+
 ## Contributing
 
 Since this project was made as a quick and dirty prototype, there's plenty more work to do!
