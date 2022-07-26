@@ -36,5 +36,5 @@ if (process.env['NODE_ENV'] === 'development') {
 
 export const getDb = async () => {
 	const dbConnection = await clientPromise;
-	return dbConnection.db(process.env.DB_NAME);
+	return dbConnection.db(process.env.MONGODB_DB_NAME);
 };
