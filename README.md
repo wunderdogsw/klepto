@@ -2,8 +2,17 @@
 
 Simple website for sharing project ideas for others to steal, whether for education, fun, or profit.
 
-The stack is based on [Svelte](https://svelte.dev), [SvelteKit](https://kit.svelte.dev), [MongoDB](https://www.mongodb.com), and [Svelte Material UI](https://sveltematerialui.com).
+This MVP is based on [Svelte](https://svelte.dev), [SvelteKit](https://kit.svelte.dev),
+[MongoDB](https://www.mongodb.com), and [Svelte Material UI](https://sveltematerialui.com).
 
+## Contributing
+
+Since this project was made as a quick and dirty prototype, there's plenty more work to do!
+
+If you'd like to contribute, please check out [issues on GitHub](https://github.com/wunderdogsw/klepto/issues). If you 
+find bugs or have ideas for enhancements, go ahead and open new issues. 
+
+To get coding, make sure to work on a separate branch and open pull requests to get your contribution reviewed and merged.
 ## Setup
 
 1. Install packages with `npm install` (or `pnpm install` or `yarn`)
