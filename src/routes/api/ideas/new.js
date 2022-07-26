@@ -2,12 +2,13 @@ import { ObjectId } from 'mongodb';
 
 import { getDb } from '$lib/mongodb-client';
 import { getPayloadFromJWTCookie } from '$lib/utils';
+import { respond } from '$lib/respond';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 export async function post({ request }) {
-	try {
+	const createResponse = async () => {
 		const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
 
 		const db = await getDb();
@@ -27,15 +28,9 @@ export async function post({ request }) {
 		console.log('new idea', { idea });
 
 		return {
-			status: 200,
 			body: { idea }
 		};
-	} catch (error) {
-		console.error(error);
-		const { message } = error;
-		return {
-			status: 400,
-			body: { error: { message } }
-		};
-	}
+	};
+
+	return await respond(createResponse);
 }

@@ -2,9 +2,10 @@ import { ObjectId } from 'mongodb';
 
 import { getDb } from '$lib/mongodb-client';
 import { getPayloadFromJWTCookie } from '$lib/utils';
+import { respond } from '$lib/respond';
 
 export async function patch({ request }) {
-	try {
+	const createResponse = async () => {
 		const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
 
 		const db = await getDb();
@@ -21,15 +22,8 @@ export async function patch({ request }) {
 		await ideas.updateOne(filter, updateDoc);
 		console.log('vote', { userId, ideaId, isUp });
 
-		return {
-			status: 200
-		};
-	} catch (error) {
-		console.error(error);
-		const { message } = error;
-		return {
-			status: 400,
-			body: { error: { message } }
-		};
-	}
+		return {};
+	};
+
+	return await respond(createResponse);
 }

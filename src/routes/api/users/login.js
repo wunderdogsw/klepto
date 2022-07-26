@@ -1,5 +1,6 @@
 import { getDb } from '$lib/mongodb-client';
 import { generateHash, generateJWT } from '$lib/utils';
+import { respond } from '$lib/respond';
 
 import * as cookie from 'cookie';
 
@@ -9,7 +10,7 @@ dotenv.config();
 import { WEEK_IN_SECONDS, COOKIE_PATH } from '$lib/constants';
 
 export async function post({ request }) {
-	try {
+	const createResponse = async () => {
 		const db = await getDb();
 		const users = db.collection('users');
 
@@ -42,7 +43,6 @@ export async function post({ request }) {
 		console.log('login', { email });
 
 		return {
-			status: 200,
 			headers: {
 				'set-cookie': setCookie
 			},
@@ -50,12 +50,7 @@ export async function post({ request }) {
 				user: { _id, name, email }
 			}
 		};
-	} catch (error) {
-		console.error(error);
-		const { message } = error;
-		return {
-			status: 400,
-			body: { error: { message } }
-		};
-	}
+	};
+
+	return await respond(createResponse);
 }

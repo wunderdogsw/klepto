@@ -1,8 +1,9 @@
 import { getDb } from '$lib/mongodb-client';
 import { generateHash, generateSalt } from '$lib/utils';
+import { respond } from '$lib/respond';
 
 export async function post({ request }) {
-	try {
+	const createResponse = async () => {
 		const db = await getDb();
 		const users = db.collection('users');
 
@@ -24,15 +25,9 @@ export async function post({ request }) {
 		console.log('new user', user);
 
 		return {
-			status: 200,
 			body: { user }
 		};
-	} catch (error) {
-		console.error(error);
-		const { message } = error;
-		return {
-			status: 400,
-			body: { error: { message } }
-		};
-	}
+	};
+
+	return await respond(createResponse);
 }

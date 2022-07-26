@@ -1,7 +1,8 @@
 import { getDb } from '$lib/mongodb-client';
+import { respond } from '$lib/respond';
 
 export async function get() {
-	try {
+	const createResponse = async () => {
 		const db = await getDb();
 		const pipeline = [
 			{
@@ -30,17 +31,11 @@ export async function get() {
 		const ideas = await db.collection('ideas').aggregate(pipeline).sort({ date: -1 }).toArray();
 
 		return {
-			status: 200,
 			body: {
 				ideas
 			}
 		};
-	} catch (error) {
-		console.error(error);
-		const { message } = error;
-		return {
-			status: 400,
-			body: { error: { message } }
-		};
-	}
+	};
+
+	return await respond(createResponse);
 }

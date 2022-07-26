@@ -1,4 +1,5 @@
 import * as cookie from 'cookie';
+import { respond } from '$lib/respond';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -6,7 +7,7 @@ dotenv.config();
 import { COOKIE_PATH } from '$lib/constants';
 
 export async function post() {
-	try {
+	const createResponse = async () => {
 		const setCookie = cookie.serialize('token', '', {
 			httpOnly: true,
 			sameSite: 'strict',
@@ -15,17 +16,11 @@ export async function post() {
 		});
 
 		return {
-			status: 200,
 			headers: {
 				'set-cookie': setCookie
 			}
 		};
-	} catch (error) {
-		console.error(error);
-		const { message } = error;
-		return {
-			status: 400,
-			body: { error: { message } }
-		};
-	}
+	};
+
+	return await respond(createResponse);
 }
