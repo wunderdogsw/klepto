@@ -1,16 +1,5 @@
-<script context="module">
-	export function load({ error }) {
-		console.log({ error });
-		return {
-			props: {
-				title: error.message
-			}
-		};
-	}
+<script>
+	import { page } from '$app/stores';
 </script>
 
-<script lang="ts">
-	export let title;
-</script>
-
-<h1>{title}</h1>
+<h1>{$page.error.message}</h1>

@@ -1,7 +1,8 @@
 <script lang="ts">
-	import IdeaForm from '../../components/IdeaForm.svelte';
+	import IdeaForm from '../../../components/IdeaForm.svelte';
 
-	export let idea;
+	export let data;
+	let { idea } = data;
 </script>
 
 <svelte:head>

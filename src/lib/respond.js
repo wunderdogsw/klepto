@@ -1,4 +1,5 @@
 // inspired by: https://github.com/sveltejs/realworld/blob/master/src/routes/auth/_respond.js
+import { error } from '@sveltejs/kit';
 
 export const respond = async (createResponse) => {
 	try {
@@ -7,12 +8,9 @@ export const respond = async (createResponse) => {
 			status: 200,
 			...response
 		};
-	} catch (error) {
-		console.error(error);
-		const { message } = error;
-		return {
-			status: 400,
-			body: { error: { message } }
-		};
+	} catch (errorObject) {
+		console.error(errorObject);
+		const { message } = errorObject;
+		throw error(400, message);
 	}
 };

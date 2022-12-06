@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { session } from '$app/stores';
+	import { page } from '$app/stores';
 
 	import Badge from '@smui-extra/badge';
 	import IconButton, { Icon } from '@smui/icon-button';
@@ -10,18 +10,18 @@
 	export let ideaId: string;
 	export let votes: string[];
 
-	$: hasVoted = votes.some((voteUserId) => voteUserId === $session.user?._id);
+	$: hasVoted = votes.some((voteUserId) => voteUserId === $page.data.user?._id);
 
 	const handleClick = async () => {
-		if (!$session.user) {
+		if (!$page.data.user) {
 			await goto('/login');
 			return;
 		}
 
 		if (hasVoted) {
-			await ideasStore.removeVote(ideaId, $session.user._id);
+			await ideasStore.removeVote(ideaId, $page.data.user._id);
 		} else {
-			await ideasStore.addVote(ideaId, $session.user._id);
+			await ideasStore.addVote(ideaId, $page.data.user._id);
 		}
 	};
 </script>

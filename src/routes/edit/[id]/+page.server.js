@@ -1,27 +1,21 @@
+import { error } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/mongodb-client';
-import { respond } from '$lib/respond';
+import { convertToJson } from '$lib/utils.ts';
 
-export async function get({ locals, params }) {
-	const createResponse = async () => {
-		const db = await getDb();
+export async function load({ parent, params }) {
+	const db = await getDb();
 
-		const idea = await db.collection('ideas').findOne({ _id: new ObjectId(params.id) });
-		if (!idea) {
-			throw new Error('No idea found');
-		}
+	const idea = await db.collection('ideas').findOne({ _id: new ObjectId(params.id) });
+	if (!idea) {
+		throw error(400, 'No idea found');
+	}
 
-		const isUserIdea = idea.userId.equals(locals.user._id);
-		if (!isUserIdea) {
-			throw new Error("Can't edit someone else's idea");
-		}
+	const { user } = await parent();
+	const isUserIdea = idea.userId.equals(user._id);
+	if (!isUserIdea) {
+		throw error(400, "Can't edit someone else's idea");
+	}
 
-		return {
-			body: {
-				idea
-			}
-		};
-	};
-
-	return await respond(createResponse);
+	return { idea: convertToJson(idea) };
 }

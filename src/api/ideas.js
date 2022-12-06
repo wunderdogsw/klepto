@@ -1,4 +1,4 @@
-import { fetchJson } from '$lib/utils';
+import { fetchJson } from '$lib/utils.client.ts';
 
 export const add = async (idea) => await fetchJson('/api/ideas/new', idea);
 
