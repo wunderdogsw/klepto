@@ -18,7 +18,7 @@
 		</Cell>
 		<Cell span="12">
 			{#if form?.incorrect}
-				<p>Wrong email and password. Please try again</p>
+				<p>Wrong email and password. Please try again with a different email or password.</p>
 			{/if}
 			<Textfield
 				input$name="email"

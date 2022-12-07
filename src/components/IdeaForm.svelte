@@ -12,7 +12,7 @@
 
 <form method="POST" use:enhance>
 	{#if form?.incorrect}
-		<p>You do not have permissions to edit this idea</p>
+		<p>You do not have permissions to edit this idea.</p>
 	{/if}
 	<input type="hidden" name="_id" value={idea._id} />
 	<LayoutGrid>
