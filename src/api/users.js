@@ -1,18 +1,16 @@
-import { session } from '$app/stores';
-import { goto } from '$app/navigation';
-
 import { fetchJson } from '$lib/utils';
 
 export const signup = (name, email, password) =>
 	fetchJson('/api/users/signup', { name, email, password });
 
+const goHome = () => (location.href = '/');
+
 export const login = async (email, password) => {
-	const { user } = await fetchJson('/api/users/login', { email, password });
-	session.set({ user });
+	await fetchJson('/api/users/login', { email, password });
+	goHome();
 };
 
 export const logout = async () => {
 	await fetchJson('/api/users/logout');
-	session.set({ user: null });
-	await goto('/');
+	goHome();
 };

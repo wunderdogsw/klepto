@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { session } from '$app/stores';
+	import { page } from '$app/stores';
 
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import Button, { Label, Icon } from '@smui/button';
@@ -20,7 +20,7 @@
 
 		<Section align="end">
 			<Button href="/about">About</Button>
-			{#if $session.user}
+			{#if $page.data.user}
 				<Button on:click={logout}>Logout</Button>
 				<Button variant="raised" href="/new">
 					<Label>New Idea</Label>

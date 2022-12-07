@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
@@ -15,7 +13,6 @@
 	const handleSubmit = async () => {
 		try {
 			await login(email, password);
-			await goto('/');
 		} catch (error) {
 			$info = error.message ?? error;
 		}

@@ -2,18 +2,17 @@
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 
 	import { ideas as ideasStore } from '../stores/ideas';
-	import { SORT_ORDER } from '../lib/types';
+	import { SORT_ORDER } from '$lib/types';
 
 	import IdeaGrid from '../components/IdeaGrid.svelte';
 	import SortButton from '../components/SortButton.svelte';
 
-	export let ideas = [];
-
-	$ideasStore = ideas;
+	export let data;
+	$ideasStore = data.ideas ?? [];
 </script>
 
 <svelte:head>
-	<title>Steal Great Ideas | Kelpto</title>
+	<title>Steal Great Ideas | Klepto</title>
 </svelte:head>
 
 <LayoutGrid>

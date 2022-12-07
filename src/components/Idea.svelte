@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { session } from '$app/stores';
+	import { page } from '$app/stores';
 
 	import Button from '@smui/button';
 
@@ -33,7 +33,7 @@
 		<div class="flex">
 			<IdeaVoteButton ideaId={_id} {votes} />
 			<IdeaLinkButton ideaId={_id} />
-			{#if user._id === $session.user?._id}
+			{#if user._id === $page.data.user?._id}
 				<Button href={`/edit/${_id}`}>Edit</Button>
 				<IdeaDeleteButton ideaId={_id} {title} />
 			{/if}
