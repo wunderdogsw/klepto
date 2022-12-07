@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
@@ -10,7 +11,7 @@
 	<title>Signup | Klepto</title>
 </svelte:head>
 
-<form method="POST">
+<form method="POST" use:enhance>
 	<LayoutGrid>
 		<Cell span="12">
 			<h1>Signup</h1>

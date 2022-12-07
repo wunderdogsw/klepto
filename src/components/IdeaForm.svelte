@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
@@ -9,7 +10,7 @@
 	export let form;
 </script>
 
-<form method="POST">
+<form method="POST" use:enhance>
 	{#if form?.incorrect}
 		<p>You do not have permissions to edit this idea</p>
 	{/if}
