@@ -1,41 +1,34 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-
+	import { enhance } from '$app/forms';
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
 
-	import { ideas as ideasStore } from '../stores/ideas';
-	import { info } from '../stores/info';
-
-	export let idea = { title: '', description: '' };
+	export let idea = { _id: '', title: '', description: '' };
 	const isNew = !idea._id;
 
-	const handleSubmit = async () => {
-		try {
-			if (isNew) {
-				await ideasStore.add(idea);
-			} else {
-				// TODO fix idea editing
-				await ideasStore.edit(idea);
-			}
-
-			await goto('/');
-		} catch (error) {
-			$info = error.message ?? error;
-		}
-	};
+	export let form;
 </script>
 
-<form on:submit|preventDefault={handleSubmit}>
+<form method="POST" use:enhance>
+	{#if form?.incorrect}
+		<p>You do not have permissions to edit this idea.</p>
+	{/if}
+	<input type="hidden" name="_id" value={idea._id} />
 	<LayoutGrid>
 		<Cell span="12">
-			<Textfield name="title" label="Title" bind:value={idea.title} style="width: 100%;" required />
+			<Textfield
+				input$name="title"
+				label="Title"
+				bind:value={idea.title}
+				style="width: 100%;"
+				required
+			/>
 		</Cell>
 		<Cell span="12">
 			<Textfield
 				textarea
-				name="description"
+				input$name="description"
 				label="Description"
 				bind:value={idea.description}
 				required

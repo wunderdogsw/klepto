@@ -37,16 +37,6 @@ const createIdeas = () => {
 		}
 	};
 
-	const add = async (idea) => {
-		const json = await ideasApi.add(idea);
-		update((ideas) => [json.idea, ...ideas]);
-	};
-
-	const edit = async (idea) => {
-		await ideasApi.edit(idea);
-		update((ideas) => ideas.map((item) => (item._id === idea._id ? idea : item)));
-	};
-
 	const del = async (_id) => {
 		await ideasApi.del(_id);
 		update((ideas) => ideas.filter((item) => item._id !== _id));
@@ -74,8 +64,6 @@ const createIdeas = () => {
 		subscribe,
 		set,
 		sortBy,
-		add,
-		edit,
 		del,
 		addVote,
 		removeVote

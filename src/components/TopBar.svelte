@@ -3,8 +3,6 @@
 
 	import TopAppBar, { Row, Section, Title } from '@smui/top-app-bar';
 	import Button, { Label, Icon } from '@smui/button';
-
-	import { logout } from '../api/users';
 </script>
 
 <TopAppBar variant="static" color="secondary">
@@ -21,7 +19,9 @@
 		<Section align="end">
 			<Button href="/about">About</Button>
 			{#if $page.data.user}
-				<Button on:click={logout}>Logout</Button>
+				<form method="POST" action="/logout">
+					<Button>Logout</Button>
+				</form>
 				<Button variant="raised" href="/new">
 					<Label>New Idea</Label>
 					<Icon class="material-icons">lightbulb</Icon>
