@@ -4,7 +4,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"start": "npm run dev",
-		"build": "svelte-kit build",
+		"build": "vite build",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"prepare": "svelte-kit sync && npm run smui-theme",
