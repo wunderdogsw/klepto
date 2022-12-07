@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { json, error } from '@sveltejs/kit';
 import { getDb } from '$lib/server/mongodb-client';
 import { generateHash, generateJWT } from '$lib/server/utils';
 
@@ -42,10 +42,10 @@ export async function POST({ request }) {
 
 	console.log('login', { email });
 
-	return new Response(
-		JSON.stringify({
+	return json(
+		{
 			user: { _id, name, email }
-		}),
+		},
 		{
 			headers: {
 				'set-cookie': setCookie

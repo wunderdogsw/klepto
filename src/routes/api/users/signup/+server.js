@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { json, error } from '@sveltejs/kit';
 import { getDb } from '$lib/server/mongodb-client';
 import { generateHash, generateSalt } from '$lib/server/utils';
 
@@ -24,5 +24,5 @@ export async function POST({ request }) {
 	await users.insertOne(user);
 	console.log('new user', { name, email });
 
-	return new Response(JSON.stringify({ user }));
+	return json({ user });
 }

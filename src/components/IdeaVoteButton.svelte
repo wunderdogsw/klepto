@@ -9,19 +9,20 @@
 
 	export let ideaId: string;
 	export let votes: string[];
+	const { user } = $page.data;
 
-	$: hasVoted = votes.some((voteUserId) => voteUserId === $page.data.user?._id);
+	$: hasVoted = user && votes.some((voteUserId) => voteUserId === user._id);
 
 	const handleClick = async () => {
-		if (!$page.data.user) {
+		if (!user) {
 			await goto('/login');
 			return;
 		}
 
 		if (hasVoted) {
-			await ideasStore.removeVote(ideaId, $page.data.user._id);
+			await ideasStore.removeVote(ideaId, user._id);
 		} else {
-			await ideasStore.addVote(ideaId, $page.data.user._id);
+			await ideasStore.addVote(ideaId, user._id);
 		}
 	};
 </script>

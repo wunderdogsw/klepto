@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { json, error } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/server/mongodb-client';
 import { getPayloadFromJWTCookie } from '$lib/server/utils';
@@ -28,5 +28,5 @@ export async function POST({ request }) {
 
 	console.log('edit idea', { idea });
 
-	return new Response(JSON.stringify({ idea }));
+	return json({ idea });
 }

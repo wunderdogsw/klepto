@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 
 import { getDb } from '$lib/server/mongodb-client';
@@ -20,5 +21,5 @@ export async function PATCH({ request }) {
 	await ideas.updateOne(filter, updateDoc);
 	console.log('vote', { userId, ideaId, isUp });
 
-	return new Response(JSON.stringify({}));
+	return json({});
 }

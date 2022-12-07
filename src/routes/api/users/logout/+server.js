@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import * as cookie from 'cookie';
 
 import dotenv from 'dotenv';
@@ -13,9 +14,12 @@ export async function POST() {
 		path: COOKIE_PATH
 	});
 
-	return new Response(JSON.stringify({}), {
-		headers: {
-			'set-cookie': setCookie
+	return json(
+		{},
+		{
+			headers: {
+				'set-cookie': setCookie
+			}
 		}
-	});
+	);
 }

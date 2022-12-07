@@ -1,3 +1,4 @@
+import { json } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 
 import { getDb } from '$lib/server/mongodb-client';
@@ -25,5 +26,5 @@ export async function POST({ request }) {
 	await ideas.insertOne(idea);
 	console.log('new idea', { idea });
 
-	return new Response(JSON.stringify({ idea }));
+	return json({ idea });
 }
