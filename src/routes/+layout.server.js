@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
-import { getDb } from '$lib/mongodb-client.js';
-import { getPayloadFromJWTCookie, hasJWTCookie } from '$lib/utils.ts';
+import { getDb } from '$lib/server/mongodb-client';
+import { getPayloadFromJWTCookie, hasJWTCookie } from '$lib/server/utils';
 
 const getUser = async (request) => {
 	const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);

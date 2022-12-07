@@ -1,6 +1,6 @@
 import { goto } from '$app/navigation';
 
-import { fetchJson } from '$lib/utils.client.ts';
+import { fetchJson } from '$lib/utils';
 
 export const signup = (name, email, password) =>
 	fetchJson('/api/users/signup', { name, email, password });

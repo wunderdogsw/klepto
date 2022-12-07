@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
-import { getDb } from '$lib/mongodb-client';
-import { getPayloadFromJWTCookie } from '$lib/utils';
+import { getDb } from '$lib/server/mongodb-client';
+import { getPayloadFromJWTCookie } from '$lib/server/utils';
 
 export async function PATCH({ request }) {
 	const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);

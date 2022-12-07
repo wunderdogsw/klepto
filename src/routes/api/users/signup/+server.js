@@ -1,6 +1,6 @@
 import { error } from '@sveltejs/kit';
-import { getDb } from '$lib/mongodb-client';
-import { generateHash, generateSalt } from '$lib/utils';
+import { getDb } from '$lib/server/mongodb-client';
+import { generateHash, generateSalt } from '$lib/server/utils';
 
 export async function POST({ request }) {
 	const db = await getDb();

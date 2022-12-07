@@ -3,7 +3,7 @@ import * as cookie from 'cookie';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { COOKIE_PATH } from '$lib/constants';
+import { COOKIE_PATH } from '$lib/server/constants';
 
 export async function POST() {
 	const setCookie = cookie.serialize('token', '', {

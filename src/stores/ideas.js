@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { SORT_ORDER } from '../lib/types';
 import * as ideasApi from '../api/ideas';
-import { randomizeArray, sortArrayByProp } from '$lib/utils.client.ts';
+import { randomizeArray, sortArrayByProp } from '$lib/utils';
 
 const sortByPopularity = (ideas) =>
 	ideas.sort((idea1, idea2) => {

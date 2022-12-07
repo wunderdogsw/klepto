@@ -1,13 +1,13 @@
 import { error } from '@sveltejs/kit';
-import { getDb } from '$lib/mongodb-client';
-import { generateHash, generateJWT } from '$lib/utils';
+import { getDb } from '$lib/server/mongodb-client';
+import { generateHash, generateJWT } from '$lib/server/utils';
 
 import * as cookie from 'cookie';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { WEEK_IN_SECONDS, COOKIE_PATH } from '$lib/constants';
+import { WEEK_IN_SECONDS, COOKIE_PATH } from '$lib/server/constants';
 
 export async function POST({ request }) {
 	const db = await getDb();

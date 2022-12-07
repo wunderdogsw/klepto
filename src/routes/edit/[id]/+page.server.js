@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
-import { getDb } from '$lib/mongodb-client';
-import { convertToJson } from '$lib/utils.ts';
+import { getDb } from '$lib/server/mongodb-client';
+import { convertToJson } from '$lib/server/utils';
 
 export async function load({ parent, params }) {
 	const db = await getDb();

@@ -1,5 +1,5 @@
-import { getDb } from '$lib/mongodb-client';
-import { convertToJson } from '$lib/utils.ts';
+import { getDb } from '$lib/server/mongodb-client';
+import { convertToJson } from '$lib/server/utils';
 
 export async function load() {
 	const db = await getDb();
