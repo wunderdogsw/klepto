@@ -1,7 +1,11 @@
 <script lang="ts">
 	import IdeaForm from '../../../components/IdeaForm.svelte';
+	import type { IdeaType } from '../../../types';
 
-	export let data;
+	type DataType = {
+		idea: Pick<IdeaType, '_id' | 'title' | 'description'>;
+	};
+	export let data: DataType;
 	let { idea } = data;
 </script>
 

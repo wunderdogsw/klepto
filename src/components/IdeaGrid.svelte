@@ -9,7 +9,7 @@
 <LayoutGrid>
 	{#each $ideas as idea}
 		{@const { userId, ...props } = idea}
-		<Cell span="12">
+		<Cell span={12}>
 			<Idea {...props} />
 		</Cell>
 	{/each}
