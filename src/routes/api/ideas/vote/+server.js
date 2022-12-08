@@ -2,10 +2,10 @@ import { json } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
 
 import { getDb } from '$lib/server/mongodb-client';
-import { getPayloadFromJWTCookie } from '$lib/server/utils';
+import { getPayloadFromCookies } from '$lib/server/utils';
 
-export async function PATCH({ request }) {
-	const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
+export async function PATCH({ request, cookies }) {
+	const { userId } = await getPayloadFromCookies(cookies);
 
 	const db = await getDb();
 	const ideas = db.collection('ideas');

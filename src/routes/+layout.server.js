@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongodb';
 import { getDb } from '$lib/server/mongodb-client';
-import { getPayloadFromJWTCookie, hasJWTCookie } from '$lib/server/utils';
+import { getPayloadFromCookies } from '$lib/server/utils';
 
-const getUser = async (request) => {
-	const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
+const getUser = async (cookies) => {
+	const { userId } = await getPayloadFromCookies(cookies);
 
 	const db = await getDb();
 	const users = db.collection('users');
@@ -17,8 +17,9 @@ const getUser = async (request) => {
 };
 
 /** @type {import('./$types').LayoutServerLoad} */
-export async function load({ request }) {
-	const user = hasJWTCookie(request) ? await getUser(request) : null;
+export async function load({ cookies }) {
+	const token = cookies.get('token');
+	const user = token ? await getUser(cookies) : null;
 	return {
 		user
 	};

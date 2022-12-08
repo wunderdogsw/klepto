@@ -1,11 +1,11 @@
-import { redirect } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
-import { getPayloadFromJWTCookie } from '$lib/server/utils';
+import { redirect } from '@sveltejs/kit';
 import { getDb } from '$lib/server/mongodb-client.js';
+import { getPayloadFromCookies } from '$lib/server/utils';
 
 export const actions = {
-	default: async ({ request }) => {
-		const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
+	default: async ({ cookies, request }) => {
+		const { userId } = await getPayloadFromCookies(cookies);
 
 		const db = await getDb();
 		const ideas = db.collection('ideas');
