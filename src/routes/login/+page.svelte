@@ -3,8 +3,13 @@
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
+	import type { FormType } from '../../types';
 
-	export let form;
+	type LoginForm = {
+		email: string;
+		incorrect: boolean;
+	};
+	export let form: LoginForm & FormType;
 </script>
 
 <svelte:head>
@@ -13,10 +18,10 @@
 
 <form method="POST" use:enhance>
 	<LayoutGrid>
-		<Cell span="12">
+		<Cell span={12}>
 			<h1>Login</h1>
 		</Cell>
-		<Cell span="12">
+		<Cell span={12}>
 			{#if form?.incorrect}
 				<p>Wrong email and password. Please try again with a different email or password.</p>
 			{/if}
@@ -29,7 +34,7 @@
 				required
 			/>
 		</Cell>
-		<Cell span="12">
+		<Cell span={12}>
 			<Textfield
 				input$name="password"
 				value=""
@@ -40,10 +45,10 @@
 			/>
 		</Cell>
 
-		<Cell span="12">
+		<Cell span={12}>
 			<Button variant="raised">Login</Button>
 		</Cell>
-		<Cell span="12">
+		<Cell span={12}>
 			<p>Don't have a user? Please <a href="/signup">signup</a></p>
 		</Cell>
 	</LayoutGrid>

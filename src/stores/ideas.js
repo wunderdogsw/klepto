@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import { SORT_ORDER } from '../lib/types';
+import { SORT_ORDER } from '../types/index.ts';
 import * as ideasApi from '../api/ideas';
 import { randomizeArray, sortArrayByProp } from '$lib/utils';
 
@@ -21,9 +21,7 @@ const createIdeas = () => {
 	const { subscribe, set, update } = writable([]);
 
 	const sortBy = (sortOrderKey) => {
-		const sortOrder = SORT_ORDER[sortOrderKey];
-
-		switch (sortOrder) {
+		switch (sortOrderKey) {
 			case SORT_ORDER.POPULARITY:
 				update(sortByPopularity);
 				break;

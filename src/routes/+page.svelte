@@ -2,12 +2,16 @@
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 
 	import { ideas as ideasStore } from '../stores/ideas';
-	import { SORT_ORDER } from '$lib/types';
+	import { SORT_ORDER } from '../types';
+	import type { IdeaType } from '../types';
 
 	import IdeaGrid from '../components/IdeaGrid.svelte';
 	import SortButton from '../components/SortButton.svelte';
 
-	export let data;
+	type DataType = {
+		ideas: IdeaType[];
+	};
+	export let data: DataType;
 	$ideasStore = data.ideas ?? [];
 </script>
 
@@ -16,11 +20,11 @@
 </svelte:head>
 
 <LayoutGrid>
-	<Cell span="12">
+	<Cell span={12}>
 		<div class="wrapper">
-			{#each Object.keys(SORT_ORDER) as sortOrderKey}
-				<SortButton {sortOrderKey} />
-			{/each}
+			<SortButton sortOrderKey={SORT_ORDER.DATE} />
+			<SortButton sortOrderKey={SORT_ORDER.POPULARITY} />
+			<SortButton sortOrderKey={SORT_ORDER.RANDOM} />
 		</div>
 	</Cell>
 </LayoutGrid>

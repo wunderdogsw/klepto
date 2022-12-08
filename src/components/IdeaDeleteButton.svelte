@@ -5,8 +5,8 @@
 	import { ideas as ideasStore } from '../stores/ideas';
 	import { info } from '../stores/info';
 
-	export let ideaId;
-	export let title;
+	export let ideaId: string;
+	export let title = '';
 
 	let open = false;
 
@@ -20,7 +20,11 @@
 			open = false;
 			$info = `Deleted "${title}"`;
 		} catch (error) {
-			$info = error.message ?? error;
+			if (error instanceof Error) {
+				$info = error.message;
+			} else if (typeof error === 'string') {
+				$info = error;
+			}
 		}
 	};
 </script>

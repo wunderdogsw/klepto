@@ -9,13 +9,14 @@
 	import IdeaLinkButton from './IdeaLinkButton.svelte';
 	import IdeaDeleteButton from './IdeaDeleteButton.svelte';
 	import TimeAgo from './TimeAgo.svelte';
+	import type { UserType } from '../types';
 
 	export let _id: string;
 	export let title: string;
 	export let description: string;
 	export let votes: string[];
 	export let date: string;
-	export let user;
+	export let user: UserType;
 
 	let open = false;
 	let linked = false;

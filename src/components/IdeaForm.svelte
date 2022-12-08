@@ -3,11 +3,11 @@
 	import LayoutGrid, { Cell } from '@smui/layout-grid';
 	import Textfield from '@smui/textfield';
 	import Button from '@smui/button';
+	import type { FormType } from '../types';
 
+	export let form: FormType = null;
 	export let idea = { _id: '', title: '', description: '' };
 	const isNew = !idea._id;
-
-	export let form;
 </script>
 
 <form method="POST" use:enhance>
@@ -16,7 +16,7 @@
 	{/if}
 	<input type="hidden" name="_id" value={idea._id} />
 	<LayoutGrid>
-		<Cell span="12">
+		<Cell span={12}>
 			<Textfield
 				input$name="title"
 				label="Title"
@@ -25,7 +25,7 @@
 				required
 			/>
 		</Cell>
-		<Cell span="12">
+		<Cell span={12}>
 			<Textfield
 				textarea
 				input$name="description"
@@ -36,13 +36,13 @@
 				style="width: 100%;"
 			/>
 		</Cell>
-		<Cell span="12">
+		<Cell span={12}>
 			<span>
 				By submitting this form I hereby willfully and with sound mind release this idea to the
 				public domain and will not have any copyright or any other claims whatsoever
 			</span>
 		</Cell>
-		<Cell span="12">
+		<Cell span={12}>
 			<Button variant="raised">{isNew ? 'Add Idea' : 'Update Idea'}</Button>
 		</Cell>
 	</LayoutGrid>
