@@ -1,11 +1,8 @@
 import { redirect, invalid, error } from '@sveltejs/kit';
 import { ObjectId } from 'mongodb';
-import { getDb } from '$lib/server/mongodb-client';
-import { convertToJson } from '$lib/server/utils';
-import { getPayloadFromJWTCookie } from '$lib/server/utils';
 
-import dotenv from 'dotenv';
-dotenv.config();
+import { getDb } from '$lib/server/mongodb-client';
+import { convertToJson, getPayloadFromCookies } from '$lib/server/utils';
 
 export async function load({ parent, params }) {
 	const db = await getDb();
@@ -25,8 +22,8 @@ export async function load({ parent, params }) {
 }
 
 export const actions = {
-	default: async ({ request }) => {
-		const { userId } = await getPayloadFromJWTCookie(process.env.JWT_SECRET, request);
+	default: async ({ request, cookies }) => {
+		const { userId } = await getPayloadFromCookies(cookies);
 
 		const data = await request.formData();
 		const _id = data.get('_id');

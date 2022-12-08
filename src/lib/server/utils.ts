@@ -1,7 +1,10 @@
 import * as crypto from 'crypto';
 import type { JWTPayload } from 'jose';
 import * as jose from 'jose';
-import * as cookie from 'cookie';
+import dotenv from 'dotenv';
+import type { Cookies } from '@sveltejs/kit';
+
+dotenv.config();
 
 export const generateSalt = (): string => crypto.randomBytes(16).toString('hex');
 
@@ -18,22 +21,15 @@ export const generateJWT = async (secret: string, payload: JWTPayload): Promise<
 		.sign(key);
 };
 
-const verifyJWT = async (secret: string, jwt: string) => {
+export const verifyJWT = async (secret = '', jwt = '') => {
 	const key = stringToUint8Array(secret);
 	return await jose.jwtVerify(jwt, key);
 };
 
-export const getPayloadFromJWTCookie = async (secret: string, request: Request) => {
-	const cookieHeader = request.headers.get('cookie') ?? '';
-	const { token } = cookie.parse(cookieHeader);
-	const { payload } = await verifyJWT(secret, token);
+export const getPayloadFromCookies = async (cookies: Cookies) => {
+	const token = cookies.get('token');
+	const { payload } = await verifyJWT(process.env.JWT_SECRET, token);
 	return payload;
-};
-
-export const hasJWTCookie = (request: Request) => {
-	const cookieHeader = request.headers.get('cookie') ?? '';
-	const { token } = cookie.parse(cookieHeader);
-	return !!(cookieHeader || token);
 };
 
 export const convertToJson = (object: unknown) => JSON.parse(JSON.stringify(object));
